@@ -343,7 +343,7 @@ body.role-alumno #live-btn,body.role-alumno #qr-btn,body.role-alumno #q-btn,body
 
 .avpick button{position:relative}.avpick button.taken{opacity:.55;filter:grayscale(.8)}.avpick .lk{position:absolute;right:-2px;bottom:-2px;font-style:normal;font-size:14px;line-height:1}
 .avcard{display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:center;background:var(--surface-2);border:1px solid var(--line);border-radius:14px;padding:10px 12px}
-.avcard b{display:block;font-size:16px}.avcard small{color:var(--muted);font-weight:700}.avcard p{margin:4px 0 0;font-size:13.5px;line-height:1.35}
+.avcard .avmel{display:block;margin-top:5px;color:var(--accent);font-size:12.5px}.avcard .avyt{display:block;width:200px;max-width:100%;aspect-ratio:16/9;border:0;border-radius:8px;margin-top:6px;background:#000}.avcred{font-size:12px;color:var(--muted)}.avcred summary{cursor:pointer}.avcred ul{margin:6px 0;padding-left:18px}.avcred p{margin:4px 0}.avcard b{display:block;font-size:16px}.avcard small{color:var(--muted);font-weight:700}.avcard p{margin:4px 0 0;font-size:13.5px;line-height:1.35}
 .avbig{position:relative;line-height:0}
 .avcard.pop .avbig svg{animation:avpop .55s cubic-bezier(.3,1.6,.5,1)}
 @keyframes avpop{0%{transform:scale(.6) rotate(-8deg)}60%{transform:scale(1.12) rotate(4deg)}100%{transform:none}}
@@ -1058,7 +1058,7 @@ loadRec();
     <div class="bar" style="justify-content:space-between"><h2 style="margin:0">Clase en directo</h2><button class="btn" id="lv-close" type="button">Cerrar ✕</button></div>
     <div id="lv-start" class="lvopts">
       <div class="lvopt" id="lv-hostopt"><h3>🖥️ Pantalla de clase</h3><p class="note" style="margin:0">Para el ordenador del proyector. Abre una sala y muestra el código: lo que hagan los móviles conectados se verá aquí, y lo que hagas aquí se verá en los móviles.</p><button class="btn primary" id="lv-host" type="button">Abrir sala</button></div>
-      <div class="lvopt"><h3>📱 Soy alumno/a</h3><label for="lv-name">Tu nombre</label><input id="lv-name" maxlength="20" autocomplete="off" placeholder="Por ejemplo, Lucía"><span>Elige tu compositor/a <b class="avname" id="lv-avname"></b></span><div class="avpick" id="lv-av" role="radiogroup" aria-label="Avatar"></div><div class="avcard" id="lv-avcard" aria-live="polite"></div><label for="lv-code">Código de la sala</label><input id="lv-code" inputmode="numeric" maxlength="4" autocomplete="off" placeholder="4 cifras"><button class="btn primary" id="lv-join" type="button">Unirme</button></div>
+      <div class="lvopt"><h3>📱 Soy alumno/a</h3><label for="lv-name">Tu nombre</label><input id="lv-name" maxlength="20" autocomplete="off" placeholder="Por ejemplo, Lucía"><span>Elige tu compositor/a <b class="avname" id="lv-avname"></b></span><div class="avpick" id="lv-av" role="radiogroup" aria-label="Avatar"></div><div class="avcard" id="lv-avcard" aria-live="polite"></div><details class="avcred"><summary>Créditos de la música</summary><ul id="lv-avcred"></ul><p>Grabaciones de Wikimedia Commons e Internet Archive, en dominio público o con licencia libre. Se escuchan unos segundos desde esos sitios, por eso necesitan internet.</p></details><label for="lv-code">Código de la sala</label><input id="lv-code" inputmode="numeric" maxlength="4" autocomplete="off" placeholder="4 cifras"><button class="btn primary" id="lv-join" type="button">Unirme</button></div>
     </div>
     <div id="lv-hostview" hidden>
       <div class="lvhost">
@@ -1910,6 +1910,42 @@ function podium(S){const top=sorted(S).slice(0,3);if(!top.length)return;
 })();
 </script>
 <script>
+// fragmento de una grabación real al elegir avatar (Wikimedia Commons / Internet Archive, dominio público o licencias libres)
+(function(){
+const W='https://upload.wikimedia.org/wikipedia/commons/transcoded/',C='https://commons.wikimedia.org/wiki/File:';
+const w=(p,f)=>W+p+'/'+f+'/'+f+'.mp3';
+const AUD={
+ beethoven:{t:'Quinta sinfonía',yt:'de7TWd4KM5w',s:17,e:27,cr:'Orquesta Joven de la Sinfónica de Galicia, dir. Rubén Gimeno (YouTube)',pg:'https://www.youtube.com/watch?v=de7TWd4KM5w'},
+ mozart:{t:'Pequeña serenata nocturna',u:w('6/68','Mozart_K525_Serenade_in_G_Major_1_-_Allegro.ogg'),o:0,d:8,cr:'European Archive · dominio público',pg:C+'Mozart_K525_Serenade_in_G_Major_1_-_Allegro.ogg'},
+ bach:{t:'Tocata y fuga en re menor',u:w('b/be','Toccata_et_Fugue_BWV565.ogg'),o:0,d:9,cr:'Ashtar Moïra · dominio público',pg:C+'Toccata_et_Fugue_BWV565.ogg'},
+ vivaldi:{t:'La primavera (Las cuatro estaciones)',u:w('1/18','The_Modena_Chamber_Orchestra_-_Vivaldi%27s_Spring%2C_RV_269_-_I._Allegro.ogg'),o:0,d:8,cr:'The Modena Chamber Orchestra · dominio público',pg:C+'The_Modena_Chamber_Orchestra_-_Vivaldi%27s_Spring,_RV_269_-_I._Allegro.ogg'},
+ haydn:{t:'Sinfonía «La sorpresa» (¡espera el golpe!)',u:w('4/42','Haydn%3B_Symphony_No._94_%22Surprise%22%2C_2._Andante.ogg'),o:36.5,d:9.5,cr:'Boston Symphony Orchestra, S. Koussevitzky · dominio público',pg:C+'Haydn;_Symphony_No._94_%22Surprise%22,_2._Andante.ogg'},
+ chopin:{t:'Marcha fúnebre (Sonata n.º 2)',u:w('c/ca','Chopin_Pitman_sonata_no_2_in_b_flat_minor_funeral_march_III_marche_funebre_lento.ogg'),o:2.4,d:9,cr:'Paul Pitman · dominio público',pg:C+'Chopin_Pitman_sonata_no_2_in_b_flat_minor_funeral_march_III_marche_funebre_lento.ogg'},
+ chaikovski:{t:'El lago de los cisnes',u:w('1/1f','Tchaikovsky_Swan_Lake_Op.20_No.10._Sc%C3%A8ne.ogg'),o:1,d:10,cr:'dominio público',pg:C+'Tchaikovsky_Swan_Lake_Op.20_No.10._Sc%C3%A8ne.ogg'},
+ verdi:{t:'«La donna è mobile» (Rigoletto)',u:w('5/5a','La_Donna_E_Mobile_Rigoletto.ogg'),o:0,d:9,cr:'grabación histórica · dominio público',pg:C+'La_Donna_E_Mobile_Rigoletto.ogg'},
+ hildegarda:{t:'O frondens virga',u:w('a/ad','O_frondens_2.ogg'),o:1,d:9,cr:'Makemi · dominio público',pg:C+'O_frondens_2.ogg'},
+ strozzi:{t:'Dialogo in partenza',u:w('4/48','Barbara_Strozzi_-_Dialogo_in_Partenza.ogg'),o:1,d:8,cr:'Pracchia-78 · dominio público',pg:C+'Barbara_Strozzi_-_Dialogo_in_Partenza.ogg'},
+ jacquet:{t:'Marche du roi Nérée',u:w('b/bc','Elisabeth-Claude_Jacquet_de_la_Guerre_-_Marche_du_Roi_Nereus.ogg'),o:0,d:8,cr:'Pracchia-78 · dominio público',pg:C+'Elisabeth-Claude_Jacquet_de_la_Guerre_-_Marche_du_Roi_Nereus.ogg'},
+ carreno:{t:'Vals Gottschalk',u:w('0/0b','Teresa_Carre%C3%B1o_-_Gottschalk_Waltz.ogg'),o:1.5,d:8,cr:'Pracchia-78 · dominio público',pg:C+'Teresa_Carre%C3%B1o_-_Gottschalk_Waltz.ogg'},
+ falla:{t:'Danza ritual del fuego (El amor brujo)',u:w('8/8f','Illinois_Brass_Band_-_09_-_De_Falla_Ritual_Fire_Dance.ogg'),o:0,d:9,cr:'Illinois Brass Band · CC0',pg:C+'Illinois_Brass_Band_-_09_-_De_Falla_Ritual_Fire_Dance.ogg'},
+ clara:{t:'Tres romanzas para violín y piano',u:'https://archive.org/download/ClaraSchumann_ThreeRomances/Right%2302.mp3',o:3,d:10,cr:'Internet Archive · marca de dominio público',pg:'https://archive.org/details/ClaraSchumann_ThreeRomances'},
+ scarlatti:{t:'Este Essercizio n.º 9',rec:true,d:6}
+};
+window.__AVMEL=AUD;
+let cur=null,tmr=null,fade=null;
+function stop(){clearTimeout(tmr);clearInterval(fade);const a=cur;cur=null;if(!a)return;let v=a.volume;fade=setInterval(()=>{v-=.08;if(v<=0){clearInterval(fade);try{a.pause()}catch(e){}}else try{a.volume=v}catch(e){}},40)}
+window.__playAv=function(k){stop();const m=AUD[k];if(!m||m.yt)return;
+  let src;if(m.rec){if(typeof REC_SRC==='undefined')return;src=REC_SRC}else src=m.u+'#t='+m.o;
+  const a=new Audio(src);a.preload='auto';cur=a;a.volume=.85;
+  if(m.rec)a.currentTime=(typeof REC_TT!=='undefined'?REC_TT[0]:0);
+  else a.addEventListener('loadedmetadata',()=>{if(a.currentTime<m.o-.3)try{a.currentTime=m.o}catch(e){}},{once:true});
+  a.play().then(()=>{tmr=setTimeout(()=>{if(cur===a)stop()},m.d*1000)}).catch(()=>{if(cur===a)cur=null})};
+window.__stopAv=stop;
+window.__avYT=m=>`<iframe class="avyt" src="https://www.youtube-nocookie.com/embed/${m.yt}?start=${m.s}&end=${m.e}&autoplay=1&controls=1&rel=0&modestbranding=1&playsinline=1" title="${m.t}" allow="autoplay; encrypted-media; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin"></iframe>`;
+window.__avCredits=()=>Object.entries(AUD).filter(([k,m])=>m.pg).map(([k,m])=>`<li><b>${(window.AVATARS&&AVATARS[k]?AVATARS[k].n:k)}</b> — ${m.t}: <a href="${m.pg}" target="_blank" rel="noopener">${m.cr}</a></li>`).join('');
+})();
+</script>
+<script>
 // selector de avatar al unirse
 (function(){const box=document.getElementById('lv-av');if(!box||!window.AVATARS)return;const ORDER=['beethoven','clara','mozart','fanny','bach','hildegarda','vivaldi','strozzi','scarlatti','jacquet','haydn','martines','chopin','lili','verdi','price','chaikovski','rodrigo','falla','carreno'];const keys=ORDER.filter(k=>AVATARS[k]);
 window.__avSel=keys[Math.floor(Math.random()*keys.length)];
@@ -1937,10 +1973,12 @@ const INFO=window.__AVINFO={
  carreno:['1853–1917 · Venezuela','Con solo diez años tocó el piano en la Casa Blanca para el presidente Abraham Lincoln.']};
 const card=document.getElementById('lv-avcard');
 function showCard(anim){if(!card)return;const k=window.__avSel,a=AVATARS[k],f=INFO[k]||['',''];
-  card.innerHTML=`<div class="avbig">${avSVG(k,76)}${anim?'<i class="nt n1">♪</i><i class="nt n2">♫</i><i class="nt n3">♩</i><i class="nt n4">♬</i>':''}</div><div><b>${a.n}</b><small>${f[0]}</small><p>${f[1]}</p></div>`;
+  const mel=(window.__AVMEL||{})[k];const tit=mel&&mel.t;
+  card.innerHTML=`<div class="avbig">${avSVG(k,76)}${anim?'<i class="nt n1">♪</i><i class="nt n2">♫</i><i class="nt n3">♩</i><i class="nt n4">♬</i>':''}</div><div><b>${a.n}</b><small>${f[0]}</small><p>${f[1]}</p>${tit?`<small class="avmel">${anim?'🔊':'♪'} ${tit}</small>`:''}${anim&&mel&&mel.yt&&window.__avYT?__avYT(mel):''}</div>`;
+  if(anim&&window.__playAv)__playAv(k);
   if(anim){card.classList.remove('pop');void card.offsetWidth;card.classList.add('pop')}}
 box.addEventListener('click',e=>{const b=e.target.closest('[data-av]');if(!b)return;if(b.classList.contains('taken')){const m=document.getElementById('lv-msg');if(m)m.textContent=AVATARS[b.dataset.av].n+' ya lo tiene otra persona: si lo eliges, habrá un duelo.'}window.__avSel=b.dataset.av;draw();showCard(true)});draw();showCard(false);
-window.__avRefresh=()=>{draw()};window.__avCard=()=>showCard(false)})();
+{const cl=document.getElementById('lv-avcred');if(cl&&window.__avCredits)cl.innerHTML=__avCredits()}window.__avRefresh=()=>{draw()};window.__avCard=()=>showCard(false)})();
 </script>
 
 <script>
