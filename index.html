@@ -1526,8 +1526,8 @@ const NS='http://www.w3.org/2000/svg';
 // ---------- ranking de la clase: solo en la pantalla del profe (no se envía a los móviles) ----------
 (function(){
 const R={p:{},done:{},hist:[]};window.__RANK=R;
-const T=30000; // en 30 s los puntos bajan de 1000 a 500
-const ptsFor=(ok,t)=>ok?Math.round(500+500*Math.max(0,1-(t==null?T:t)/T)):0;
+// acierto en menos de 10 s: 1000 puntos; a partir de ahí, 20 puntos menos por cada 5 s
+const ptsFor=(ok,t)=>{if(!ok)return 0;const s=(t==null?60000:t)/1000;return s<10?1000:Math.max(0,1000-20*(Math.floor((s-10)/5)+1))};
 const esc=s=>String(s).replace(/[<>&"]/g,c=>({'<':'&lt;','>':'&gt;','&':'&amp;','"':'&quot;'}[c]));
 const fmt=ms=>ms==null?'—':(ms/1000).toFixed(1).replace('.',',')+' s';
 window.__score=(key,list,label)=>{if(R.done[key]||!list)return;R.done[key]=1;
@@ -1547,7 +1547,7 @@ function draw(flash){const list=Object.entries(R.p).map(([id,P])=>({id,...P,avg:
   box.innerHTML=`<div class="rkh"><b>🏆 Ranking</b><span class="muted">${R.hist.length} pregunta${R.hist.length===1?'':'s'}</span><button type="button" id="rk-x" aria-label="Ocultar">✕</button></div>
    ${list.length?`<ol class="rkl">${list.map((P,i)=>`<li class="${i<3?'top'+(i+1):''}"><span class="rkn">${i<3?['🥇','🥈','🥉'][i]:i+1}</span><span class="rkav">${window.avSVG?avSVG(P.av,30):''}</span><span class="rknm">${esc(P.name)}${last&&last.res.some(r=>r.id===P.id)?`<small class="${P.last?'up':'zero'}">${P.last?'+'+P.last:'+0'}</small>`:''}</span><span class="rkpt">${P.pts}</span><span class="rkst">✔ ${P.ok}/${P.n} · ⏱ ${fmt(P.avg)}</span></li>`).join('')}</ol>`
      :'<p class="muted" style="margin:6px 0">Aún no hay puntos. Se suman al pulsar «✅ Ver la solución» en una pregunta.</p>'}
-   <p class="rknote">Acierto: entre 1000 puntos (respuesta inmediata) y 500 (30 s o más). Fallo o sin enviar: 0.</p>
+   <p class="rknote">Acierto en menos de 10 s: 1000 puntos. Después, 20 puntos menos por cada 5 s (10–15 s: 980; 15–20 s: 960…). Fallo o sin enviar: 0.</p>
    <div class="row"><button type="button" class="btn" id="rk-reset">Reiniciar ranking</button></div>`;
   box.querySelector('#rk-x').onclick=()=>{box.hidden=true};
   box.querySelector('#rk-reset').onclick=()=>{if(!confirmReset())return;R.p={};R.done={};R.hist=[];draw()}}
