@@ -99,6 +99,23 @@ html.k9inframe,html.k9inframe body{height:100%;overflow:hidden;margin:0}
 input,select,textarea{font-size:max(16px,1em)}
 #k9scroll{position:fixed;inset:0;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;background:var(--bg)}
 body.mode-student:not(.p-acts) #panel-paint,body.mode-student:not(.p-acts) #panel-hunt{display:none!important}
+
+/* envío de respuestas y ranking */
+.sendbtn{font:inherit;font-weight:800!important;font-size:17px!important;background:#ffd23f!important;color:#2a1f5c!important;border:0;border-radius:999px;padding:10px 20px!important;cursor:pointer;box-shadow:0 3px 0 rgba(0,0,0,.25)}
+body.mode-student #rank-btn,body.mode-student #rankbox{display:none!important}
+#rankbox{position:fixed;z-index:55;top:70px;right:12px;width:min(360px,calc(100vw - 24px));max-height:calc(100vh - 90px);overflow:auto;background:var(--surface);color:var(--ink);border:2px solid #d4a017;border-radius:14px;padding:12px 14px;box-shadow:0 12px 32px rgba(0,0,0,.28);display:grid;gap:8px}
+.rkh{display:flex;align-items:center;gap:10px}.rkh b{font-size:18px}.rkh button{margin-left:auto;border:1px solid var(--line);background:var(--surface-2);border-radius:8px;cursor:pointer;padding:2px 8px;font:inherit}
+.rkl{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.rkl li{display:grid;grid-template-columns:34px 32px 1fr auto;grid-template-rows:auto auto;align-items:center;column-gap:8px;background:var(--surface-2);border-radius:10px;padding:6px 10px}
+.rkl li.top1{background:#fff3c4}.rkl li.top2{background:#eef1f6}.rkl li.top3{background:#f8e4d4}
+.rkn{grid-row:1/3;font-weight:800;font-size:18px;text-align:center}.rkav{grid-row:1/3}.rkav svg{display:block}
+.rknm{font-weight:700;display:flex;gap:6px;align-items:baseline;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.rknm small{font-weight:800;font-size:12px}.rknm small.up{color:#1b8a4a}.rknm small.zero{color:var(--muted)}
+.rkpt{grid-row:1/3;grid-column:4;font-family:var(--f-mono);font-weight:800;font-size:20px}
+.rkst{grid-column:3;font-size:12px;color:var(--muted)}
+.rknote{margin:0;font-size:12px;color:var(--muted)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .rkl li.top1,:root:not([data-theme="light"]) .rkl li.top2,:root:not([data-theme="light"]) .rkl li.top3{color:#1a1f2c}}
+#rank-btn.pulse{animation:rkp .9s ease-out 2}@keyframes rkp{50%{box-shadow:0 0 0 6px rgba(212,160,23,.45)}}
 /* captura del esquema */
 .esqprev{display:grid;gap:10px;border-top:1px solid var(--line);padding-top:12px}
 .eph{display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px}
@@ -278,7 +295,7 @@ body.mode-student:not(.connected) #esquema{display:none!important}
 body.mode-student #q-btn,body.mode-student .qbanner .qt{display:none!important}
 
 body.mode-student #all-on,body.mode-student #all-off,body.mode-student #cad-btn,body.mode-student #name-btn,body.mode-student #info-btn,body.mode-student #info,body.mode-student .sec [data-line],body.mode-student .sec [data-name]{display:none!important}
-body.role-alumno #live-btn,body.role-alumno #qr-btn,body.role-alumno #q-btn,body.role-alumno #lv-hostopt{display:none!important}
+body.role-alumno #live-btn,body.role-alumno #qr-btn,body.role-alumno #q-btn,body.role-alumno #rank-btn,body.role-alumno #lv-hostopt{display:none!important}
 
 .avpick{display:flex;gap:4px;overflow-x:auto;padding:4px 2px 8px;scroll-snap-type:x proximity;-webkit-overflow-scrolling:touch}
 .avpick button{flex:none;border:2px solid transparent;background:transparent;border-radius:50%;padding:2px;cursor:pointer;line-height:0;scroll-snap-align:start}
@@ -1081,7 +1098,7 @@ function describe(a,b,actor){if(!a||!b)return'';const out=[];const ids=x=>new Se
   if(!qa.reveal&&qb.reveal)out.push('ha mostrado la solución');
   if(qa.on&&qb.on&&qa.k===qb.k){const la=qa.lines||{},lb=qb.lines||{};
     Object.keys(lb).forEach(k=>{const who=k===actor?'su respuesta':'la respuesta de '+lb[k].name;
-      if(!la[k])out.push('ha colocado '+who);else if(Math.abs(la[k].p-lb[k].p)>1e-3)out.push('ha movido '+who)});
+      if(!la[k])out.push('ha colocado '+who);else if(lb[k].sent&&!la[k].sent)out.push(k===actor?'ha enviado su respuesta':'ha enviado la respuesta de '+lb[k].name);else if(Math.abs(la[k].p-lb[k].p)>1e-3)out.push('ha movido '+who)});
     if(Object.keys(la).length&&!Object.keys(lb).length)out.push('ha borrado las respuestas')}
   const MN={explore:'Explorar',paint:'Colorear yo',hunt:'Buscar cadencias'};
   if(a.mode&&b.mode&&a.mode!==b.mode)out.push('ha pasado a «'+MN[b.mode]+'»');
@@ -1142,7 +1159,7 @@ function startHost(){
       if(m.t==='state'){if(L.locked){hostPublish();return}
         L.nextActor={id:m.from,name};
         const hq=window.__Q;if(m.s&&m.s.q&&hq){const iq=m.s.q;const lines=Object.assign({},hq.lines||{});
-          if(iq.r===hq.r&&iq.on&&hq.on&&iq.k===hq.k&&!hq.closed&&!hq.reveal){const o=(iq.lines||{})[m.from];if(o){const cur=lines[m.from];if(!cur||(o.v||0)>=(cur.v||0))lines[m.from]=Object.assign({},o,{name,av:(L.people.get(m.from)||{}).av||o.av})}}
+          if(iq.r===hq.r&&iq.on&&hq.on&&iq.k===hq.k&&!hq.closed&&!hq.reveal){const o=(iq.lines||{})[m.from];const cur=lines[m.from];if(o&&!(cur&&cur.sent)&&(!cur||(o.v||0)>=(cur.v||0))){const nl=Object.assign({},o,{name,av:(L.people.get(m.from)||{}).av||o.av});if(nl.sent)nl.t=Date.now()-(hq.t0||Date.now());else delete nl.t;lines[m.from]=nl}}
           m.s.q=Object.assign({},hq,{lines})}
         if(m.s&&window.__hostFix)window.__hostFix(m.s);
         const fixed=m.s?sanitize(m.s):false;
@@ -1231,14 +1248,21 @@ document.getElementById('topbar').insertAdjacentHTML('afterbegin','<button class
 const cut=k=>keys()[k];const NC=()=>keys().length;
 const near=(p,k)=>Math.abs(cut(k)-p)<.34;
 function followView(k){const P=xAt(cut(k));if(st.view!=='AB'){const v=P.pg?'B':'A';if(st.view!==v)setView(v)}}
-function go(k){const q=Q();k=Math.max(0,Math.min(NC()-1,k));if(q.reveal&&!q.done.includes(q.k))q.done.push(q.k);q.k=k;q.lines={};q.reveal=false;q.closed=false;q.r=(q.r||0)+1;followView(k);render()}
+function go(k){const q=Q();k=Math.max(0,Math.min(NC()-1,k));if(q.reveal&&!q.done.includes(q.k))q.done.push(q.k);q.k=k;q.lines={};q.reveal=false;q.closed=false;q.r=(q.r||0)+1;q.t0=Date.now();followView(k);render()}
 function drawQ(){const q=Q();const b=document.getElementById('qbanner');b.hidden=!q.on;
   if(q.on){const n=Object.keys(q.lines||{}).length;const k=q.k||0;
-    b.innerHTML=`<b>❓ ¿Dónde se produce la ${ORD[k]||(k+1)+'ª'} interrupción de la textura?</b><span class="qwho">${n?'✋ Han contestado: '+Object.values(q.lines).map(o=>`<span class="qav">${window.avSVG?avSVG(o.av,26):''}${String(o.name||'?').replace(/[<>&]/g,'')}</span>`).join(' '):'Aún no ha contestado nadie'}</span><span class="note">${document.body.classList.contains('mode-student')?(q.closed||q.reveal)?'🔒 Ya se ha mostrado la solución: no se pueden poner ni mover líneas.':'Toca la partitura donde creas que se interrumpe el dibujo de las notas. Solo tienes una línea: toca en otro sitio o arrástrala para moverla.':`${k+1} de ${NC()} · ${n} respuesta${n===1?'':'s'}`}</span>
+    b.innerHTML=`<b>❓ ¿Dónde se produce la ${ORD[k]||(k+1)+'ª'} interrupción de la textura?</b><span class="qwho">${n?'✋ Han contestado: '+Object.values(q.lines).map(o=>`<span class="qav">${window.avSVG?avSVG(o.av,26):''}${String(o.name||'?').replace(/[<>&]/g,'')}</span>`).join(' '):'Aún no ha contestado nadie'}</span>${(()=>{if(!document.body.classList.contains('mode-student'))return `<span class="note">${k+1} de ${NC()} · ${n} respuesta${n===1?'':'s'}</span>`;
+      if(q.closed||q.reveal)return '<span class="note">🔒 Ya se ha mostrado la solución: no se pueden poner ni mover líneas.</span>';
+      const o=(q.lines||{})[me().id];
+      if(o&&o.sent)return '<span class="note">✓ Respuesta enviada. Espera a que el profe muestre la solución.</span>';
+      if(o)return '<button type="button" class="sendbtn" id="q-send">✅ Enviar respuesta</button><span class="note">Puedes moverla hasta que la envíes. Cuanto antes, más puntos; después ya no se puede mover.</span>';
+      return '<span class="note">Toca la partitura donde creas que se interrumpe el dibujo de las notas. Después pulsa «Enviar respuesta».</span>'})()}
      <span class="qt" style="display:flex;gap:8px;flex-wrap:wrap"><button type="button" id="q-prev">◀ Anterior</button><button type="button" id="q-reveal">${q.reveal?'Ocultar solución':'✅ Ver la solución'}</button><button type="button" id="q-next">Siguiente ▶</button><button type="button" id="q-clear">🧽 Borrar respuestas</button><button type="button" id="q-end">✖ Terminar</button></span>`;
-    const r=document.getElementById('q-reveal');if(r){r.onclick=()=>{q.reveal=!q.reveal;if(q.reveal){q.closed=true;if(!q.done.includes(q.k))q.done.push(q.k)}render()};
+    const qs=document.getElementById('q-send');if(qs)qs.onclick=()=>{const o=(q.lines||{})[me().id];if(!o||o.sent||q.closed||q.reveal)return;o.sent=true;o.v=(o.v||0)+1;render()};
+    const r=document.getElementById('q-reveal');if(r){r.onclick=()=>{q.reveal=!q.reveal;if(q.reveal){q.closed=true;if(!q.done.includes(q.k))q.done.push(q.k);
+        if(window.__score)window.__score('c:'+q.r+':'+q.k,Object.entries(q.lines||{}).filter(([,o])=>o.sent).map(([id,o])=>({id,name:o.name,av:o.av,ok:near(o.p,q.k),t:o.t})),'Interrupción '+(q.k+1))}render()};
       document.getElementById('q-prev').onclick=()=>go(q.k-1);document.getElementById('q-next').onclick=()=>go(q.k+1);
-      document.getElementById('q-clear').onclick=()=>{q.lines={};q.reveal=false;q.closed=false;q.r=(q.r||0)+1;render()};document.getElementById('q-end').onclick=()=>{window.__Q={on:false,k:0,reveal:false,lines:{},done:[]};render()}}}
+      document.getElementById('q-clear').onclick=()=>{q.lines={};q.reveal=false;q.closed=false;q.r=(q.r||0)+1;q.t0=Date.now();render()};document.getElementById('q-end').onclick=()=>{window.__Q={on:false,k:0,reveal:false,lines:{},done:[]};render()}}}
   svgs.forEach((svg,pg)=>{let g=svg.querySelector('.g-q');if(!g){g=document.createElementNS('http://www.w3.org/2000/svg','g');g.setAttribute('class','g-q');svg.appendChild(g)}
     if(!q.on){g.innerHTML='';return}
     let h='';const my=me().id;
@@ -1254,12 +1278,13 @@ function drawQ(){const q=Q();const b=document.getElementById('qbanner');b.hidden
 }
 window.__afterRender=drawQ;
 const prevRender=render;render=function(){prevRender();drawQ()};
-let dragQ=null;let cnT=0;function closedNote(){const n=Date.now();if(n-cnT<1500)return;cnT=n;const t=document.getElementById('lvtoast');if(!t)return;const d=document.createElement('div');d.textContent='Ya se ha mostrado la solución: no se pueden poner ni mover líneas.';t.appendChild(d);setTimeout(()=>d.remove(),2600)}
+let dragQ=null;let cnT=0;function closedNote(msg){const n=Date.now();if(n-cnT<1500)return;cnT=n;const t=document.getElementById('lvtoast');if(!t)return;const d=document.createElement('div');d.textContent=msg||'Ya se ha mostrado la solución: no se pueden poner ni mover líneas.';t.appendChild(d);setTimeout(()=>d.remove(),2600)}
 svgs.forEach((svg,pg)=>{
   svg.addEventListener('pointerdown',e=>{const q=Q();if(!q.on||st.mode!=='explore')return;
     const Lc=locate(pg,e);if(!Lc)return;e.stopImmediatePropagation();e.preventDefault();if(q.closed||q.reveal){closedNote();return}
     const tol=(typeof TOL!=='undefined'?TOL:18)+6;let hit=null;
     const m=me();const stu=document.body.classList.contains('mode-student')||(window.__liveRole&&window.__liveRole()==='student');
+    if(stu&&q.lines&&q.lines[m.id]&&q.lines[m.id].sent){closedNote('Ya has enviado tu respuesta: no se puede mover.');return}
     Object.entries(q.lines||{}).forEach(([id,o])=>{if(stu&&id!==m.id)return;const P=xAt(o.p);if(P.pg===pg&&P.sy===Lc.sy&&Math.abs(P.x-Lc.x)<tol)hit=id});
 if(!hit){q.lines=q.lines||{};const old=q.lines[m.id];q.lines[m.id]={p:Lc.i+Lc.f,name:m.name,av:m.av,v:(old&&old.v||0)+1};hit=m.id}
     dragQ={id:hit,pg};try{svg.setPointerCapture(e.pointerId)}catch(_){}render()},true);
@@ -1270,7 +1295,7 @@ if(!hit){q.lines=q.lines||{};const old=q.lines[m.id];q.lines[m.id]={p:Lc.i+Lc.f,
   svg.addEventListener('click',e=>{if(Q().on&&st.mode==='explore')e.stopImmediatePropagation()},true);
 });
 document.getElementById('q-btn').onclick=()=>{const q=Q();if(q.on){window.__Q={on:false,k:0,reveal:false,lines:{},done:[]};render()}
-  else{window.__Q={on:true,k:0,reveal:false,lines:{},done:[],r:Date.now()%100000};if(st.mode!=='explore')setMode('explore');st.lines=new Set();followView(0);render()}};
+  else{window.__Q={on:true,k:0,reveal:false,lines:{},done:[],r:Date.now()%100000,t0:Date.now()};if(st.mode!=='explore')setMode('explore');st.lines=new Set();followView(0);render()}};
 drawQ();
 })();
 </script>
@@ -1412,7 +1437,7 @@ function makeOpts(h){const c=h.lab;const others=POOL.filter(l=>l!==c&&plain(l,c)
   const rest=shuffle(others.filter(l=>!l.includes('/')||c.includes('/')));
   const out=[c];[sameFig[0],sameDeg[0],sameFig[1],...rest].forEach(l=>{if(l&&out.length<4&&!out.includes(l))out.push(l)});
   return shuffle(out)}
-function ask(h){const q=HQ();Object.assign(q,{h:h.id,opts:makeOpts(h),ans:{},reveal:false,closed:false,r:(q.r||0)+1});
+function ask(h){const q=HQ();Object.assign(q,{h:h.id,opts:makeOpts(h),ans:{},reveal:false,closed:false,r:(q.r||0)+1,t0:Date.now()});
   if(st.view!=='AB'){const v=xAt(h.p).pg?'B':'A';if(st.view!==v)setView(v)}render()}
 function startHQ(){if(window.__Q&&window.__Q.on)window.__Q={on:false,k:0,reveal:false,lines:{},done:[]};
   window.__HQ={on:true,h:null,opts:[],ans:{},reveal:false,r:Date.now()%100000,done:[]};if(st.mode!=='explore')setMode('explore');closePop();render()}
@@ -1420,11 +1445,12 @@ function endHQ(){window.__HQ={on:false};render()}
 window.__startHQ=startHQ;window.__endHQ=endHQ;
 // respuesta propia (en los móviles se envía a la pantalla de clase)
 let mine=null,ddOpen=false;
-function answer(i){const q=HQ();if(!q.on||!q.h||q.reveal||q.closed)return;mine={r:q.r,h:q.h,c:i};ddOpen=false;
-  if(role()==='student'&&window.__stuPub){window.__stuPub({t:'hans',r:q.r,h:q.h,c:i});drawBanner()}
-  else{const m=me();q.ans=q.ans||{};q.ans[m.id]={name:m.name,av:m.av,c:i};render()}}
-window.__onHAns=m=>{const q=HQ();if(!q.on||m.r!==q.r||m.h!==q.h||q.reveal||q.closed)return;q.ans=q.ans||{};
-  q.ans[m.from]={name:String(m.name||'Alumno/a').slice(0,20),av:m.av,c:m.c|0};render()};
+function answer(i){const q=HQ();if(!q.on||!q.h||q.reveal||q.closed)return;if(mine&&mine.r===q.r&&mine.h===q.h&&mine.sent)return;mine={r:q.r,h:q.h,c:i,sent:false};drawBanner()}
+function sendAns(){const q=HQ();if(!mine||mine.sent||mine.r!==q.r||mine.h!==q.h||q.reveal||q.closed)return;mine.sent=true;ddOpen=false;
+  if(role()==='student'&&window.__stuPub){window.__stuPub({t:'hans',r:q.r,h:q.h,c:mine.c});drawBanner()}
+  else{const m=me();q.ans=q.ans||{};if(!q.ans[m.id])q.ans[m.id]={name:m.name,av:m.av,c:mine.c,t:Date.now()-(q.t0||Date.now())};render()}}
+window.__onHAns=m=>{const q=HQ();if(!q.on||m.r!==q.r||m.h!==q.h||q.reveal||q.closed)return;q.ans=q.ans||{};if(q.ans[m.from])return;
+  q.ans[m.from]={name:String(m.name||'Alumno/a').slice(0,20),av:m.av,c:m.c|0,t:Date.now()-(q.t0||Date.now())};render()};
 const avs=o=>`<span class="qav">${window.avSVG?avSVG(o.av,24):''}${esc(o.name||'?')}</span>`;
 function drawBanner(){const q=HQ();let b=document.getElementById('hqbanner');
   if(!b){document.getElementById('qbanner').insertAdjacentHTML('afterend','<div class="qbanner hqb" id="hqbanner" hidden></div>');b=document.getElementById('hqbanner')}
@@ -1433,24 +1459,27 @@ function drawBanner(){const q=HQ();let b=document.getElementById('hqbanner');
   if(!q.h){b.innerHTML=`<b>🎼 Pregunta de armonía</b><span class="note">${teach?'Pulsa en la partitura el acorde que quieres preguntar (los <b>?</b> marcan dónde hay armonía).':'Espera: el profe va a elegir un acorde…'}</span>${teach?`<span class="qt" style="display:flex;gap:8px;flex-wrap:wrap"><button type="button" id="hq-end">✖ Terminar</button></span>`:''}`;bind();return}
   const h=HID[q.h];const ans=q.ans||{};const list=Object.values(ans);const n=list.length;const ci=q.opts.indexOf(h.lab);
   let body='';
-  if(stu){const my=mine&&mine.r===q.r&&mine.h===q.h?mine.c:(ans[me().id]?ans[me().id].c:null);
+  if(stu){const cur=mine&&mine.r===q.r&&mine.h===q.h?mine:null;const my=cur?cur.c:(ans[me().id]?ans[me().id].c:null);const sent=cur?cur.sent:!!ans[me().id];
     if(q.reveal){body=`<div class="hres ${my===ci?'ok':'ko'}">${my==null?'No has contestado.':my===ci?'✅ ¡Correcto!':'❌ No es ese.'} La respuesta es <span class="hlab">${htmlLab(h.lab)}</span>${h.key?` <small>(${esc(h.key)})</small>`:''}</div>`}
     else if(q.closed)body=`<div class="hres ko" style="background:#5b6274">🔒 Ya se ha cerrado la pregunta${my!=null?`. Tu respuesta: <span class="hlab">${htmlLab(q.opts[my])}</span>`:''}</div>`;
-    else body=`<div class="hdd"><button type="button" class="hdd-btn" id="hdd-btn" aria-expanded="${ddOpen}">${my!=null?`Tu respuesta: <span class="hlab">${htmlLab(q.opts[my])}</span>`:'Elige el grado'} <span aria-hidden="true">▾</span></button>
-      <div class="hdd-list" id="hdd-list" ${ddOpen?'':'hidden'} role="listbox">${q.opts.map((l,i)=>`<button type="button" role="option" aria-selected="${my===i}" data-hopt="${i}"><span class="hlab">${htmlLab(l)}</span></button>`).join('')}</div>
-      ${my!=null?'<span class="note">✓ Enviada. Puedes cambiarla hasta que el profe muestre la solución.</span>':''}</div>`}
+    else if(sent)body=`<div class="hres" style="background:#1d5bd8">✓ Respuesta enviada: <span class="hlab">${htmlLab(q.opts[my])}</span><small>Espera a que el profe muestre la solución.</small></div>`;
+    else body=`<div class="hdd"><button type="button" class="hdd-btn" id="hdd-btn" aria-expanded="${ddOpen||my==null}">${my!=null?`Has elegido: <span class="hlab">${htmlLab(q.opts[my])}</span>`:'Elige el grado'} <span aria-hidden="true">▾</span></button>
+      <div class="hdd-list" id="hdd-list" ${ddOpen||my==null?'':'hidden'} role="listbox">${q.opts.map((l,i)=>`<button type="button" role="option" aria-selected="${my===i}" data-hopt="${i}"><span class="hlab">${htmlLab(l)}</span></button>`).join('')}</div>
+      ${my!=null?'<button type="button" class="sendbtn" id="hq-send">✅ Enviar respuesta</button><span class="note">Cuanto antes la envíes, más puntos. Después ya no se puede cambiar.</span>':'<span class="note">Toca una opción y después pulsa «Enviar respuesta».</span>'}</div>`}
   else{body=`<div class="hopts">${q.opts.map((l,i)=>{const who=list.filter(o=>o.c===i);const pct=n?Math.round(who.length/n*100):0;
       return `<div class="hopt ${q.reveal&&i===ci?'right':''} ${q.reveal&&i!==ci&&who.length?'wrong':''}"><span class="hlab">${htmlLab(l)}</span>${q.reveal?`<span class="hbar"><i style="width:${pct}%"></i></span><b>${who.length}</b><span class="hwho">${who.map(avs).join('')}</span>`:''}</div>`}).join('')}</div>`}
   b.innerHTML=`<b>🎼 ¿Qué grado es el acorde del ${barTxt(h)}?</b>
     <span class="qwho">${n?'✋ Han contestado: '+list.map(avs).join(' '):'Aún no ha contestado nadie'}</span>${body}
     ${teach?`<span class="qt" style="display:flex;gap:8px;flex-wrap:wrap"><button type="button" id="hq-reveal">${q.reveal?'Ocultar solución':'✅ Ver la solución'}</button>${q.reveal?'':'<button type="button" id="hq-mix">🔀 Otras opciones</button>'}<button type="button" id="hq-next">🎯 Otro acorde</button><button type="button" id="hq-end">✖ Terminar</button></span>`:''}`;
   bind()}
+function scoreHQ(q){if(!window.__score)return;const ci=q.opts.indexOf(HID[q.h].lab);
+  window.__score('h:'+q.r+':'+q.h,Object.entries(q.ans||{}).map(([id,o])=>({id,name:o.name,av:o.av,ok:o.c===ci,t:o.t})),'Armonía del '+barTxt(HID[q.h]))}
 function bind(){const q=HQ();const on=(id,f)=>{const e=document.getElementById(id);if(e)e.onclick=f};
   on('hq-end',endHQ);
-  on('hq-reveal',()=>{q.reveal=!q.reveal;if(q.reveal){q.closed=true;st.harm.add(q.h);freshH=new Set([q.h]);if(!(q.done||[]).includes(q.h))(q.done=q.done||[]).push(q.h)}else st.harm.delete(q.h);render()});
-  on('hq-mix',()=>{q.opts=makeOpts(HID[q.h]);q.ans={};q.r=(q.r||0)+1;render()});
+  on('hq-reveal',()=>{q.reveal=!q.reveal;if(q.reveal){q.closed=true;scoreHQ(q);st.harm.add(q.h);freshH=new Set([q.h]);if(!(q.done||[]).includes(q.h))(q.done=q.done||[]).push(q.h)}else st.harm.delete(q.h);render()});
+  on('hq-mix',()=>{q.opts=makeOpts(HID[q.h]);q.ans={};q.r=(q.r||0)+1;q.t0=Date.now();render()});
   on('hq-next',()=>{Object.assign(q,{h:null,opts:[],ans:{},reveal:false,closed:false,r:(q.r||0)+1});render()});
-  on('hdd-btn',()=>{ddOpen=!ddOpen;drawBanner()});
+  on('hdd-btn',()=>{ddOpen=!ddOpen;drawBanner()});on('hq-send',sendAns);
   document.querySelectorAll('[data-hopt]').forEach(x=>x.onclick=()=>answer(+x.dataset.hopt))}
 
 // ---- elegir el tipo de pregunta ----
@@ -1492,6 +1521,38 @@ const NS='http://www.w3.org/2000/svg';
   let s='';NUM.filter(n=>n[0]===pg).forEach(([,sy,n])=>{const t=SYS[pg][sy][0];
     s+=`<rect x="84" y="${t-38}" width="${String(n).length*15+12}" height="31" fill="#fff"/><text x="88" y="${t-13}" font-family="Georgia, 'Times New Roman', serif" font-style="italic" font-weight="700" font-size="24" fill="#14171f">${n}</text>`});
   g.innerHTML=s;im.after(g)})})();
+</script>
+<script>
+// ---------- ranking de la clase: solo en la pantalla del profe (no se envía a los móviles) ----------
+(function(){
+const R={p:{},done:{},hist:[]};window.__RANK=R;
+const T=30000; // en 30 s los puntos bajan de 1000 a 500
+const ptsFor=(ok,t)=>ok?Math.round(500+500*Math.max(0,1-(t==null?T:t)/T)):0;
+const esc=s=>String(s).replace(/[<>&"]/g,c=>({'<':'&lt;','>':'&gt;','&':'&amp;','"':'&quot;'}[c]));
+const fmt=ms=>ms==null?'—':(ms/1000).toFixed(1).replace('.',',')+' s';
+window.__score=(key,list,label)=>{if(R.done[key]||!list)return;R.done[key]=1;
+  const round={label,res:[]};
+  list.forEach(r=>{const P=R.p[r.id]=R.p[r.id]||{name:r.name,av:r.av,pts:0,ok:0,n:0,tt:0};P.name=r.name||P.name;P.av=r.av||P.av;
+    const pts=ptsFor(r.ok,r.t);P.n++;P.pts+=pts;if(r.ok){P.ok++;P.tt+=r.t||0}P.last=pts;round.res.push({id:r.id,pts,ok:r.ok,t:r.t})});
+  R.hist.push(round);R.lastKey=key;draw(true)};
+const btn=document.createElement('button');btn.className='btn';btn.id='rank-btn';btn.type='button';btn.textContent='🏆 Ranking';
+document.getElementById('q-btn').after(btn);
+const box=document.createElement('div');box.id='rankbox';box.hidden=true;document.body.appendChild(box);
+btn.onclick=()=>{box.hidden=!box.hidden;draw()};
+function draw(flash){const list=Object.entries(R.p).map(([id,P])=>({id,...P,avg:P.ok?P.tt/P.ok:null})).sort((a,b)=>b.pts-a.pts||b.ok-a.ok||(a.avg??1e9)-(b.avg??1e9));
+  btn.textContent=list.length?`🏆 Ranking (${list.length})`:'🏆 Ranking';
+  if(flash&&box.hidden){btn.classList.remove('pulse');void btn.offsetWidth;btn.classList.add('pulse')}
+  if(box.hidden)return;
+  const last=R.hist[R.hist.length-1];
+  box.innerHTML=`<div class="rkh"><b>🏆 Ranking</b><span class="muted">${R.hist.length} pregunta${R.hist.length===1?'':'s'}</span><button type="button" id="rk-x" aria-label="Ocultar">✕</button></div>
+   ${list.length?`<ol class="rkl">${list.map((P,i)=>`<li class="${i<3?'top'+(i+1):''}"><span class="rkn">${i<3?['🥇','🥈','🥉'][i]:i+1}</span><span class="rkav">${window.avSVG?avSVG(P.av,30):''}</span><span class="rknm">${esc(P.name)}${last&&last.res.some(r=>r.id===P.id)?`<small class="${P.last?'up':'zero'}">${P.last?'+'+P.last:'+0'}</small>`:''}</span><span class="rkpt">${P.pts}</span><span class="rkst">✔ ${P.ok}/${P.n} · ⏱ ${fmt(P.avg)}</span></li>`).join('')}</ol>`
+     :'<p class="muted" style="margin:6px 0">Aún no hay puntos. Se suman al pulsar «✅ Ver la solución» en una pregunta.</p>'}
+   <p class="rknote">Acierto: entre 1000 puntos (respuesta inmediata) y 500 (30 s o más). Fallo o sin enviar: 0.</p>
+   <div class="row"><button type="button" class="btn" id="rk-reset">Reiniciar ranking</button></div>`;
+  box.querySelector('#rk-x').onclick=()=>{box.hidden=true};
+  box.querySelector('#rk-reset').onclick=()=>{if(!confirmReset())return;R.p={};R.done={};R.hist=[];draw()}}
+let armed=0;function confirmReset(){const b=box.querySelector('#rk-reset');if(Date.now()-armed<3000)return true;armed=Date.now();b.textContent='¿Seguro? Pulsa otra vez';setTimeout(()=>{if(b.isConnected)b.textContent='Reiniciar ranking'},3000);return false}
+})();
 </script>
 <script>
 // selector de avatar al unirse
