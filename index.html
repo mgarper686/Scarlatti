@@ -1178,9 +1178,11 @@ window.addEventListener('pagehide',()=>{if(L.role==='student')leave()});
 // ---------- claves: profe (todo + crear la clase) y alumnado (página completa sin crear clase) ----------
 (function(){
 const PINS={'1685':'profe','1757':'alumno'};const KEY='k9-rol';
-{const hm=location.hash.match(/^#(?:fs|solo)-(profe|alumno)$/);if(hm){window.__rol=hm[1];try{localStorage.setItem(KEY,hm[1])}catch(e){}}}
-function role(){try{return localStorage.getItem(KEY)||window.__rol||''}catch(e){return window.__rol||''}}
-function setRole(r){try{r?localStorage.setItem(KEY,r):localStorage.removeItem(KEY)}catch(e){}window.__rol=r;apply()}
+{const hm=location.hash.match(/^#(?:fs|solo)-(profe|alumno)$/);if(hm){window.__rol=hm[1]}}
+// la clave no se recuerda: al abrir o recargar la página siempre sale la vista de clase con la llave
+try{localStorage.removeItem(KEY)}catch(e){}
+function role(){return window.__rol||''}
+function setRole(r){window.__rol=r;apply()}
 function apply(){const r=role();document.body.classList.toggle('mode-student',!r);document.body.classList.toggle('role-alumno',r==='alumno');
   const b=document.getElementById('to-student');b.hidden=!r;b.textContent=r==='profe'?'👀 Vista de clase':'🔒 Salir'}
 const tb=document.getElementById('topbar');tb.insertAdjacentHTML('beforeend','<button class="btn" id="to-student" type="button" style="background:var(--surface)" hidden>👀 Vista de clase</button>');
@@ -1537,7 +1539,7 @@ async function goFS(){const el=document.documentElement;
   try{if(el.requestFullscreen){await el.requestFullscreen({navigationUI:'hide'});return true}
     if(el.webkitRequestFullscreen){el.webkitRequestFullscreen();return true}}catch(e){}
   return false}
-function rolTag(){try{return localStorage.getItem('k9-rol')||''}catch(e){return window.__rol||''}}
+function rolTag(){return window.__rol||''}
 function showHelp(){const url=/^https?:/.test(location.href)?location.href.split('#')[0]:'';
   help.innerHTML=`<b>Esta página está dentro de otra y no le deja ocupar toda la pantalla.</b>
    <span>Ya se ve solo la partitura. Para quitar también las barras del navegador:</span>
