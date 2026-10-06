@@ -1476,6 +1476,7 @@ function checkAv(m){window.__takenAv=new Set((m.taken||[]).filter(e=>e[0]!==L.my
   if(avConflict(m)){const n=(window.AVATARS&&AVATARS[avBase(L.av)]||{}).n||'ese compositor';$l('lv').hidden=false;msg('Ya hay alguien en clase con el avatar de '+n+'. ¡Preparaos para un duelo! (O elige otro y pulsa «Unirme»).');return}
   L.pendingAv=false;try{document.activeElement&&document.activeElement.blur()}catch(e){}closeModal();msg('')}
 function join(){
+  if(window.__stopAv)__stopAv();
   const code=$l('lv-code').value.trim(),name=$l('lv-name').value.trim()||'Alumno/a';
   if(L.cli&&L.role==='student'){
     L.av=window.__avSel||L.av;L.name=name;L.pendingAv=true;msg('Comprobando…');pub(T().stu,{t:'hello',from:L.myId,name,av:L.av});return}
