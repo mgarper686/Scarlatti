@@ -115,7 +115,48 @@ body.mode-student #rank-btn,body.mode-student #rankbox{display:none!important}
 .rkst{grid-column:3;font-size:12px;color:var(--muted)}
 .rknote{margin:0;font-size:12px;color:var(--muted)}
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .rkl li.top1,:root:not([data-theme="light"]) .rkl li.top2,:root:not([data-theme="light"]) .rkl li.top3{color:#1a1f2c}}
+
+.rktabs{display:flex;gap:4px;background:var(--surface-2);border-radius:999px;padding:3px}
+.rktabs button{flex:1;border:0;background:transparent;border-radius:999px;padding:6px 10px;font:inherit;font-weight:700;font-size:13px;cursor:pointer;color:var(--ink)}
+.rktabs button[aria-selected="true"]{background:var(--accent);color:#fff}
+.rkdet summary{cursor:pointer;font-weight:700;font-size:13px;color:var(--accent)}
+.rkmx{overflow-x:auto;margin-top:6px}.rkmx table{border-collapse:collapse;font-size:12.5px;width:100%}
+.rkmx th,.rkmx td{border:1px solid var(--line);padding:3px 5px;text-align:center;white-space:nowrap}.rkmx td:first-child,.rkmx th:first-child{text-align:left}
+.rkmx td.ok{background:#e3f5ea;color:#1b6b3e;font-weight:700}.rkmx td.ko{background:#fbe5e6;color:#a3262e;font-weight:700}.rkmx td.na{color:var(--muted)}
+.rkmx small{display:block;font-weight:400;font-size:10.5px}
+.rkq{margin:6px 0 0;padding-left:0;list-style:none;font-size:12px;color:var(--muted);display:flex;flex-wrap:wrap;gap:2px 12px}
+.rkhist{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.rkhist button{width:100%;text-align:left;border:1px solid var(--line);background:var(--surface-2);border-radius:10px;padding:8px 10px;cursor:pointer;font:inherit;display:grid;gap:2px;color:var(--ink)}
+.rkhist button span{font-size:12.5px;color:var(--muted)}
+#podium{position:fixed;inset:0;z-index:90;background:radial-gradient(circle at 50% 30%,#2a1f5c,#0d0b1f);color:#fff;display:grid;place-items:center;align-content:center;gap:18px;overflow:hidden;padding:20px}
+#podium h2{margin:0;font-size:clamp(28px,5vw,52px);font-family:var(--f-display);letter-spacing:.02em;animation:pdin .8s cubic-bezier(.3,1.6,.5,1) both}
+.pdrow{display:grid;grid-template-columns:repeat(3,minmax(0,220px));align-items:end;gap:14px;width:min(720px,100%)}
+.pd{display:grid;justify-items:center;gap:6px;text-align:center;animation:pdup .9s cubic-bezier(.3,1.4,.5,1) both}
+.pd.p1{animation-delay:.9s}.pd.p2{animation-delay:.45s}.pd.p3{animation-delay:.15s}
+.pd b{font-size:clamp(16px,2.4vw,24px)}.pd span{opacity:.85;font-weight:700}
+.pdav svg{filter:drop-shadow(0 8px 18px rgba(0,0,0,.45))}
+.pd.p1 .pdav{animation:pdglow 1.6s ease-in-out 1.8s infinite}
+.pdbox{width:100%;border-radius:12px 12px 0 0;display:grid;place-items:center;font-size:34px;font-weight:800;padding-top:8px}
+.pdbox small{font-size:18px;opacity:.9}
+.p1 .pdbox{height:150px;background:linear-gradient(#f5c84b,#c9971a)}.p2 .pdbox{height:110px;background:linear-gradient(#d9dee8,#9aa3b5)}.p3 .pdbox{height:80px;background:linear-gradient(#e7a774,#b06c3a)}
+.conf i{position:absolute;top:-20px;width:10px;height:16px;border-radius:2px;animation-name:cfall;animation-timing-function:linear;animation-iteration-count:infinite;opacity:.9}
+@keyframes cfall{to{transform:translateY(110vh) rotate(720deg)}}
+@keyframes pdup{from{opacity:0;transform:translateY(60px)}to{opacity:1;transform:none}}
+@keyframes pdin{from{opacity:0;transform:scale(.6)}to{opacity:1;transform:none}}
+@keyframes pdglow{50%{transform:scale(1.06)}}
+@media (prefers-reduced-motion:reduce){.conf{display:none}.pd,#podium h2,.pd.p1 .pdav{animation:none}}
 #rank-btn.pulse{animation:rkp .9s ease-out 2}@keyframes rkp{50%{box-shadow:0 0 0 6px rgba(212,160,23,.45)}}
+
+#duel{position:fixed;inset:0;z-index:95;background:rgba(13,11,31,.82);display:grid;place-items:center;padding:16px}
+#duel[hidden]{display:none!important}
+.dbox{background:var(--surface);color:var(--ink);border-radius:18px;padding:18px 16px;width:min(420px,100%);display:grid;gap:10px;text-align:center;box-shadow:0 20px 50px rgba(0,0,0,.4);animation:avpop .5s cubic-bezier(.3,1.6,.5,1)}
+.dbox h3{margin:0;font-size:22px;font-family:var(--f-body);text-transform:none;letter-spacing:normal;color:var(--ink)}.dsub{margin:0;color:var(--muted)}.dq{margin:0;font-weight:700;font-size:17px}
+.dav{position:relative;justify-self:center;line-height:0}.dav span{position:absolute;right:-8px;bottom:-4px;font-size:30px;line-height:1}
+.dopts{display:grid;gap:8px}
+.dopts button{font:inherit;font-size:15.5px;text-align:left;border:2px solid var(--line);background:var(--surface-2);color:var(--ink);border-radius:12px;padding:11px 12px;cursor:pointer;min-height:48px}
+.dopts button.chosen{border-color:var(--accent);background:#e8efff}.dopts button:disabled{cursor:default}
+.dbox.win{border:3px solid #d4a017}.dbox.lose{border:3px solid var(--line)}
+.dwait{margin:0;color:var(--muted)}
 /* captura del esquema */
 .esqprev{display:grid;gap:10px;border-top:1px solid var(--line);padding-top:12px}
 .eph{display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px}
@@ -297,9 +338,21 @@ body.mode-student #q-btn,body.mode-student .qbanner .qt{display:none!important}
 body.mode-student #all-on,body.mode-student #all-off,body.mode-student #cad-btn,body.mode-student #name-btn,body.mode-student #info-btn,body.mode-student #info,body.mode-student .sec [data-line],body.mode-student .sec [data-name]{display:none!important}
 body.role-alumno #live-btn,body.role-alumno #qr-btn,body.role-alumno #q-btn,body.role-alumno #rank-btn,body.role-alumno #lv-hostopt{display:none!important}
 
-.avpick{display:flex;gap:4px;overflow-x:auto;padding:4px 2px 8px;scroll-snap-type:x proximity;-webkit-overflow-scrolling:touch}
+.avpick{display:grid;grid-template-columns:repeat(auto-fill,minmax(48px,1fr));gap:4px;justify-items:center;padding:4px 2px 8px}
 .avpick button{flex:none;border:2px solid transparent;background:transparent;border-radius:50%;padding:2px;cursor:pointer;line-height:0;scroll-snap-align:start}
-.inspick button{padding:4px}
+
+.avpick button{position:relative}.avpick button.taken{opacity:.55;filter:grayscale(.8)}.avpick .lk{position:absolute;right:-2px;bottom:-2px;font-style:normal;font-size:14px;line-height:1}
+.avcard{display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:center;background:var(--surface-2);border:1px solid var(--line);border-radius:14px;padding:10px 12px}
+.avcard b{display:block;font-size:16px}.avcard small{color:var(--muted);font-weight:700}.avcard p{margin:4px 0 0;font-size:13.5px;line-height:1.35}
+.avbig{position:relative;line-height:0}
+.avcard.pop .avbig svg{animation:avpop .55s cubic-bezier(.3,1.6,.5,1)}
+@keyframes avpop{0%{transform:scale(.6) rotate(-8deg)}60%{transform:scale(1.12) rotate(4deg)}100%{transform:none}}
+.avcard.pop p,.avcard.pop b{animation:avin .5s ease-out both}
+@keyframes avin{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.nt{position:absolute;left:38px;top:30px;font-style:normal;font-size:20px;line-height:1;color:var(--accent);opacity:0;pointer-events:none;animation:nfly 1.3s ease-out forwards}
+.nt.n1{--dx:-34px;--dy:-46px}.nt.n2{--dx:30px;--dy:-52px;animation-delay:.08s;color:#e5464f}.nt.n3{--dx:-40px;--dy:-12px;animation-delay:.16s;color:#1fa35c}.nt.n4{--dx:36px;--dy:-14px;animation-delay:.22s;color:#9a5cf0}
+@keyframes nfly{0%{opacity:0;transform:translate(0,0) scale(.6)}20%{opacity:1}100%{opacity:0;transform:translate(var(--dx),var(--dy)) scale(1.2) rotate(20deg)}}
+@media (prefers-reduced-motion:reduce){.avcard.pop .avbig svg,.avcard.pop p,.avcard.pop b,.nt{animation:none}.nt{display:none}}
 .avpick button[aria-checked="true"]{border-color:var(--accent);box-shadow:0 0 0 2px var(--accent)}
 .avname{font-size:13px;color:var(--muted)}
 .qav{display:inline-flex;align-items:center;gap:5px;margin-right:8px;vertical-align:middle}
@@ -1005,7 +1058,7 @@ loadRec();
     <div class="bar" style="justify-content:space-between"><h2 style="margin:0">Clase en directo</h2><button class="btn" id="lv-close" type="button">Cerrar ✕</button></div>
     <div id="lv-start" class="lvopts">
       <div class="lvopt" id="lv-hostopt"><h3>🖥️ Pantalla de clase</h3><p class="note" style="margin:0">Para el ordenador del proyector. Abre una sala y muestra el código: lo que hagan los móviles conectados se verá aquí, y lo que hagas aquí se verá en los móviles.</p><button class="btn primary" id="lv-host" type="button">Abrir sala</button></div>
-      <div class="lvopt"><h3>📱 Soy alumno/a</h3><label for="lv-name">Tu nombre</label><input id="lv-name" maxlength="20" autocomplete="off" placeholder="Por ejemplo, Lucía"><span>Elige tu compositor/a <b class="avname" id="lv-avname"></b></span><div class="avpick" id="lv-av" role="radiogroup" aria-label="Avatar"></div><span>Añade un instrumento <small style="color:var(--muted)">(si quieres)</small> <b class="avname" id="lv-insname"></b></span><div class="avpick inspick" id="lv-ins" role="radiogroup" aria-label="Instrumento"></div><label for="lv-code">Código de la sala</label><input id="lv-code" inputmode="numeric" maxlength="4" autocomplete="off" placeholder="4 cifras"><button class="btn primary" id="lv-join" type="button">Unirme</button></div>
+      <div class="lvopt"><h3>📱 Soy alumno/a</h3><label for="lv-name">Tu nombre</label><input id="lv-name" maxlength="20" autocomplete="off" placeholder="Por ejemplo, Lucía"><span>Elige tu compositor/a <b class="avname" id="lv-avname"></b></span><div class="avpick" id="lv-av" role="radiogroup" aria-label="Avatar"></div><div class="avcard" id="lv-avcard" aria-live="polite"></div><label for="lv-code">Código de la sala</label><input id="lv-code" inputmode="numeric" maxlength="4" autocomplete="off" placeholder="4 cifras"><button class="btn primary" id="lv-join" type="button">Unirme</button></div>
     </div>
     <div id="lv-hostview" hidden>
       <div class="lvhost">
@@ -1026,119 +1079,203 @@ loadRec();
 <script>
 // Retratos de compositores y compositoras (dibujos propios, viewBox 0 0 100 100)
 (function(){
-const SK={light:['#f3d3b6','#d9a888','#c98d72'],fair:['#f6dcc6','#e0b49a','#cf977d'],olive:['#e6bf98','#c99a73','#b07e5b'],dark:['#8a5a3c','#6d4329','#5a3520']};
+const SK={light:['#f3d3b6','#d9a888','#c98d72'],fair:['#f6dcc6','#e0b49a','#cf977d'],olive:['#e6bf98','#c99a73','#b07e5b'],dark:['#8a5a3c','#6d4329','#5a3520'],ruddy:['#eec3a4','#d39a7c','#bf8064'],pale:['#f8e4d4','#e6c2aa','#d4a68c']};
+const OUT={
+ oval:'M35,46 C35,29 65,29 65,46 C65,60 58,71 50,71 C42,71 35,60 35,46Z',
+ round:'M35,46 C35,29 65,29 65,46 C65,62 60,72 50,72 C40,72 35,62 35,46Z',
+ square:'M35,46 C35,29 65,29 65,46 C65,59 63,67 57.5,70 Q50,72.6 42.5,70 C37,67 35,59 35,46Z',
+ heavy:'M34.5,46 C34.5,29 65.5,29 65.5,46 C66,60 64,69 57,72.5 Q50,75 43,72.5 C36,69 34,60 34.5,46Z',
+ narrow:'M36,46 C36,29 64,29 64,46 C64,61 57,72 50,72 C43,72 36,61 36,46Z'};
 function face(o){const[s,sh,sd]=SK[o.skin||'light'];const ey=o.eyeY||49;const iris=o.iris||'#4a3526';
-  const brow=o.brow||'#5a4330';const bw=o.browW||1.6;
+  const brow=o.brow||'#5a4330';const bw=o.browW||1.6;const er=o.er||1;const my=o.my||0;
+  const sx=o.w||1,sy=o.h||1;const T=(sx!==1||sy!==1)?` transform="translate(50 46) scale(${sx} ${sy}) translate(-50 -46)"`:'';
+  const chinY=46+25*sy;
   const browL=o.frown?`M39,${ey-6} Q43,${ey-8.2} 47,${ey-5.6}`:`M39,${ey-5.6} Q43,${ey-8} 47,${ey-6.4}`;
   const browR=o.frown?`M53,${ey-5.6} Q57,${ey-8.2} 61,${ey-6}`:`M53,${ey-6.4} Q57,${ey-8} 61,${ey-5.6}`;
   const mouth=o.mouth||`M45.5,64 Q50,${o.smile?67:65.6} 54.5,64`;
   const lips=o.lips?`<path d="M45.6,63.8 Q48,62.6 50,63.4 Q52,62.6 54.4,63.8 Q50,67 45.6,63.8Z" fill="${o.lips}" opacity=".85"/>`:'';
+  const outline=o.shape?OUT[o.shape]:`M35,46 C35,29 65,29 65,46 C65,${o.round?62:60} ${o.round?60:58},${o.round?72:71} 50,${o.round?72:71} C${o.round?40:42},${o.round?72:71} 35,${o.round?62:60} 35,46Z`;
+  const ex=15.4*sx;
+  let nose;
+  switch(o.nose){
+   case 'long':nose=`<path d="M50.6,${ey+1} Q49.6,${ey+9} 47.8,${ey+11.4} Q50,${ey+13} 53,${ey+11.4}" stroke="${sd}" stroke-width="1.15" fill="none" stroke-linecap="round"/><path d="M46.6,${ey+10.4} Q46.2,${ey+12} 47.6,${ey+12.2} M53.6,${ey+10.6} Q54,${ey+12} 52.8,${ey+12.2}" stroke="${sd}" stroke-width=".8" fill="none" opacity=".7"/>`;break;
+   case 'hook':nose=`<path d="M50.4,${ey} Q53.4,${ey+5} 51.2,${ey+9.6} Q49.6,${ey+12.2} 47.4,${ey+11.6} M47.4,${ey+11.6} Q49.6,${ey+13.4} 53.2,${ey+12}" stroke="${sd}" stroke-width="1.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M46,${ey+10.2} Q45.4,${ey+12} 47.2,${ey+12.4} M54.2,${ey+10.4} Q54.8,${ey+12} 53.2,${ey+12.3}" stroke="${sd}" stroke-width=".85" fill="none" opacity=".75"/><path d="M51.2,${ey+2} Q53.2,${ey+5.6} 51.6,${ey+9.4}" stroke="#fff" stroke-width=".9" opacity=".25" fill="none"/>`;break;
+   case 'big':nose=`<path d="M50.6,${ey+1} Q49.4,${ey+8} 48,${ey+10.2}" stroke="${sd}" stroke-width="1.15" fill="none" stroke-linecap="round"/><ellipse cx="50.2" cy="${ey+10.6}" rx="3.4" ry="2.3" fill="${sd}" opacity=".28"/><path d="M45.4,${ey+9.6} Q44.6,${ey+12} 47.4,${ey+12.2} Q50,${ey+13.4} 52.8,${ey+12.2} Q55.6,${ey+12} 54.8,${ey+9.6}" stroke="${sd}" stroke-width="1" fill="none" stroke-linecap="round"/>`;break;
+   case 'small':nose=`<path d="M50.4,${ey+3} Q49.4,${ey+7.6} 48.8,${ey+8.8} Q50,${ey+9.8} 51.8,${ey+9}" stroke="${sd}" stroke-width="1" fill="none" stroke-linecap="round"/>`;break;
+   default:nose=`<path d="M50.5,${ey+1} Q49,${ey+8} 48.2,${ey+9.6} Q50,${ey+11} 52.6,${ey+9.8}" stroke="${sd}" stroke-width="1.1" fill="none" stroke-linecap="round"/>`;
+  }
+  const lid=o.lids?`<path d="M${43-3.6*er},${ey-.2} Q43,${ey-2.6*er-.6} ${43+3.6*er},${ey-.2} L${43+3.6*er},${ey-1.2*er} Q43,${ey-3*er-1} ${43-3.6*er},${ey-1.2*er}Z M${57-3.6*er},${ey-.2} Q57,${ey-2.6*er-.6} ${57+3.6*er},${ey-.2} L${57+3.6*er},${ey-1.2*er} Q57,${ey-3*er-1} ${57-3.6*er},${ey-1.2*er}Z" fill="${s}"/><path d="M${43-3.6*er},${ey-.4} Q43,${ey-2.2*er} ${43+3.6*er},${ey-.4} M${57-3.6*er},${ey-.4} Q57,${ey-2.2*er} ${57+3.6*er},${ey-.4}" stroke="${sd}" stroke-width=".8" fill="none" opacity=".8"/>`:'';
+  const bags=o.bags?`<path d="M40,${ey+2.6} Q43,${ey+4.2} 46,${ey+2.6} M54,${ey+2.6} Q57,${ey+4.2} 60,${ey+2.6}" stroke="${sd}" stroke-width=".7" fill="none" opacity=".6"/>`:'';
+  const folds=o.folds?`<path d="M44.4,${ey+10} Q41.6,${ey+14} 43.4,${ey+18} M55.6,${ey+10} Q58.4,${ey+14} 56.6,${ey+18}" stroke="${sd}" stroke-width=".9" fill="none" opacity=".55" stroke-linecap="round"/>`:'';
+  const dchin=o.dchin?`<path d="M41,${chinY-.5} Q50,${chinY+5.5} 59,${chinY-.5} Q57,${chinY+3.4} 50,${chinY+4} Q43,${chinY+3.4} 41,${chinY-.5}Z" fill="${s}"/><path d="M42,${chinY+.6} Q50,${chinY+5.4} 58,${chinY+.6}" stroke="${sd}" stroke-width=".9" fill="none" opacity=".6"/>`:'';
+  const cleft=o.cleft?`<path d="M50,${chinY-3.6} L50,${chinY-1.6}" stroke="${sd}" stroke-width=".9" stroke-linecap="round" opacity=".7"/>`:'';
+  const pox=o.pox?[[40,57],[41.6,59.6],[58.6,57.4],[60,60],[39.4,60.8],[57.4,61.4],[44,55.6],[56,55]].map(([x,y])=>`<circle cx="${x}" cy="${y}" r=".45" fill="${sd}" opacity=".35"/>`).join(''):'';
+  const blush=o.blush===false?'':`<ellipse cx="42" cy="${ey+8}" rx="3.6" ry="2.2" fill="#e08a7a" opacity="${o.blush||.22}"/><ellipse cx="58" cy="${ey+8}" rx="3.6" ry="2.2" fill="#e08a7a" opacity="${o.blush||.22}"/>`;
   return `${o.scalp?`<ellipse cx="50" cy="38" rx="16" ry="12.5" fill="${o.scalp}"/>`:''}
-  <path d="M43,66 L43,80 Q50,84 57,80 L57,66Z" fill="${sh}"/>
-  <ellipse cx="34.6" cy="${ey+3}" rx="2.6" ry="4.2" fill="${sh}"/><ellipse cx="65.4" cy="${ey+3}" rx="2.6" ry="4.2" fill="${sh}"/>
-  <path d="M35,46 C35,29 65,29 65,46 C65,${o.round?62:60} ${o.round?60:58},${o.round?72:71} 50,${o.round?72:71} C${o.round?40:42},${o.round?72:71} 35,${o.round?62:60} 35,46Z" fill="${s}"/>
-  <path d="M58,33 C64,37 66,46 64,56 C62,64 57,70 50,71 C56,66 60,58 60,48 C60,41 59,36 58,33Z" fill="${sd}" opacity=".35"/>
-  <ellipse cx="42" cy="${ey+8}" rx="3.6" ry="2.2" fill="#e08a7a" opacity=".22"/><ellipse cx="58" cy="${ey+8}" rx="3.6" ry="2.2" fill="#e08a7a" opacity=".22"/>
-  <ellipse cx="43" cy="${ey}" rx="3.3" ry="2" fill="#fff"/><ellipse cx="57" cy="${ey}" rx="3.3" ry="2" fill="#fff"/>
-  <circle cx="43.3" cy="${ey}" r="1.6" fill="${iris}"/><circle cx="57.3" cy="${ey}" r="1.6" fill="${iris}"/>
+  <path d="M${o.neckW?50-o.neckW:43},66 L${o.neckW?50-o.neckW:43},80 Q50,84 ${o.neckW?50+o.neckW:57},80 L${o.neckW?50+o.neckW:57},66Z" fill="${sh}"/>
+  <ellipse cx="${50-ex+.8}" cy="${ey+3}" rx="2.6" ry="4.2" fill="${sh}"/><ellipse cx="${50+ex-.8}" cy="${ey+3}" rx="2.6" ry="4.2" fill="${sh}"/>
+  <g${T}><path d="${outline}" fill="${s}"/>
+  <path d="M58,33 C64,37 66,46 64,56 C62,64 57,70 50,71 C56,66 60,58 60,48 C60,41 59,36 58,33Z" fill="${sd}" opacity=".35"/></g>${dchin}
+  ${blush}${pox}
+  <ellipse cx="43" cy="${ey}" rx="${3.3*er}" ry="${2*er}" fill="#fff"/><ellipse cx="57" cy="${ey}" rx="${3.3*er}" ry="${2*er}" fill="#fff"/>
+  <circle cx="43.3" cy="${ey}" r="${1.6*er}" fill="${iris}"/><circle cx="57.3" cy="${ey}" r="${1.6*er}" fill="${iris}"/>
+  <circle cx="43.3" cy="${ey}" r="${.7*er}" fill="#1a1412"/><circle cx="57.3" cy="${ey}" r="${.7*er}" fill="#1a1412"/>
   <circle cx="43.8" cy="${ey-.5}" r=".45" fill="#fff"/><circle cx="57.8" cy="${ey-.5}" r=".45" fill="#fff"/>
-  <path d="M39.6,${ey-.6} Q43,${ey-2.9} 46.6,${ey-.4}" stroke="#3b2a20" stroke-width=".9" fill="none"/><path d="M53.4,${ey-.4} Q57,${ey-2.9} 60.4,${ey-.6}" stroke="#3b2a20" stroke-width=".9" fill="none"/>
+  <path d="M${43-3.4*er},${ey-.6} Q43,${ey-2.9*er} ${43+3.4*er},${ey-.4}" stroke="#3b2a20" stroke-width=".9" fill="none"/><path d="M${57-3.4*er},${ey-.4} Q57,${ey-2.9*er} ${57+3.4*er},${ey-.6}" stroke="#3b2a20" stroke-width=".9" fill="none"/>
+  ${lid}${bags}
   <path d="${browL}" stroke="${brow}" stroke-width="${bw}" fill="none" stroke-linecap="round"/><path d="${browR}" stroke="${brow}" stroke-width="${bw}" fill="none" stroke-linecap="round"/>
-  <path d="M50.5,${ey+1} Q49,${ey+8} 48.2,${ey+9.6} Q50,${ey+11} 52.6,${ey+9.8}" stroke="${sd}" stroke-width="1.1" fill="none" stroke-linecap="round"/>
-  ${lips}<path d="${mouth}" stroke="#8c4a3c" stroke-width="1.3" fill="none" stroke-linecap="round"/>
+  ${o.frown?`<path d="M49,${ey-6.4} L49.6,${ey-4} M51,${ey-6.4} L50.4,${ey-4}" stroke="${sd}" stroke-width=".7" opacity=".6"/>`:''}
+  ${nose}${folds}${cleft}
+  <g${my?` transform="translate(0 ${my})"`:''}>${lips}<path d="${mouth}" stroke="#8c4a3c" stroke-width="1.3" fill="none" stroke-linecap="round"/></g>
   ${o.extra||''}`}
 const body=(coat,extra='')=>`<path d="M6,100 C8,84 26,76 50,76 C74,76 92,84 94,100Z" fill="${coat}"/><path d="M6,100 C8,84 26,76 50,76 C40,80 30,88 26,100Z" fill="#000" opacity=".12"/>${extra}`;
 const cravat=(c='#f5f2ea')=>`<path d="M41,77 Q50,84 59,77 L56,92 Q50,96 44,92Z" fill="${c}"/><path d="M44,80 Q50,86 56,80" stroke="#d9d4c7" stroke-width="1" fill="none"/>`;
 const jabot=`<path d="M42,77 Q50,82 58,77 L60,86 Q55,84 54,90 Q50,87 46,90 Q45,84 40,86Z" fill="#fbf8f0"/><path d="M44,86 Q50,90 56,86 M45,90 Q50,94 55,90" stroke="#ddd6c6" stroke-width="1" fill="none"/>`;
 const curls=(pts,c,r=5.2)=>pts.map(([x,y,rr])=>`<circle cx="${x}" cy="${y}" r="${rr||r}" fill="${c}"/><circle cx="${x-1}" cy="${y-1.2}" r="${(rr||r)*.55}" fill="#fff" opacity=".18"/>`).join('');
+// rollos horizontales de peluca (siglo XVIII)
+const roll=(x,y,w,c,dark)=>`<rect x="${x-w/2}" y="${y-2.6}" width="${w}" height="5.2" rx="2.6" fill="${c}"/><path d="M${x-w/2+1.4},${y} h${w-2.8}" stroke="${dark}" stroke-width=".8" opacity=".6"/>`;
+const pearls=(x0,x1,y,sag,n,r=1.2)=>Array.from({length:n},(_,i)=>{const t=i/(n-1);const x=x0+(x1-x0)*t;const yy=y+Math.sin(t*Math.PI)*sag;return `<circle cx="${x.toFixed(1)}" cy="${yy.toFixed(1)}" r="${r}" fill="#f7f3ea"/><circle cx="${(x-.35).toFixed(1)}" cy="${(yy-.35).toFixed(1)}" r="${r*.35}" fill="#fff"/>`}).join('');
 const P={
- beethoven:{n:'Beethoven',bg:'#7d1d36',d:
-  `<path d="M24,58 C14,40 22,18 40,14 C46,6 62,8 66,15 C80,16 88,34 78,58 L72,46 L70,30 L32,30 L28,46Z" fill="#3d3632"/>`+
-  body('#22252e',cravat())+
-  face({scalp:'#4a423c',skin:'light',frown:true,brow:'#3b302b',browW:2.2,mouth:'M45.5,65 Q50,63.8 54.5,65',iris:'#3a3a40'})+
-  `<path d="M33,40 C30,26 38,17 47,18 C44,22 45,24 49,22 C54,18 60,19 62,24 C66,22 70,28 68,40 L66,34 C64,30 60,29 58,31 L56,26 L52,30 L47,25 L44,31 L40,27 L37,34Z" fill="#4a423c"/><path d="M33,40 L30,48 L34,46Z M68,40 L71,49 L66,46Z M36,22 L30,16 L39,19Z M60,18 L66,11 L64,20Z" fill="#4a423c"/>`},
- mozart:{n:'Mozart',bg:'#b63a2c',d:
-  `<path d="M34,40 C30,64 34,74 40,76 L60,76 C66,74 70,64 66,40Z" fill="#ece8e0"/>`+
-  body('#c0392b',jabot+`<path d="M30,82 L36,100 M70,82 L64,100" stroke="#e6b84a" stroke-width="2"/>`)+
-  face({scalp:'#f2efe8',skin:'fair',smile:true,lips:'#d9837a',iris:'#5b6f8a',brow:'#bfa98a'})+
-  `<path d="M34,44 C32,26 44,20 50,20 C58,20 68,26 66,44 C64,34 58,28 50,28 C42,28 36,34 34,44Z" fill="#f2efe8"/>`+curls([[33.5,46,4.6],[33,54,4.6],[66.5,46,4.6],[67,54,4.6]],'#ece8e0')+`<path d="M60,30 Q72,34 70,46" stroke="#d8d2c6" stroke-width="1" fill="none"/>`},
+ beethoven:{n:'Beethoven',bg:'#3d4a36',d:
+  `<path d="M31,68 Q20,66 21,57 Q13,52 18,44 Q11,35 20,29 Q17,19 28,17 Q30,9 41,11 Q47,5 55,9 Q63,5 69,12 Q80,11 81,22 Q89,28 83,36 Q91,44 83,51 Q88,59 79,61 Q78,68 69,68 L66,50 L34,50Z" fill="#86847f"/>
+   <path d="M22,56 Q18,48 23,42 Q19,34 26,28 M27,62 Q24,54 29,48 M78,56 Q82,48 77,42 Q81,34 74,28 M73,62 Q76,54 71,48 M30,20 Q36,14 44,16 M56,13 Q64,12 70,18" stroke="#5f5d59" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+   <path d="M20,46 Q22,40 27,38 M24,34 Q28,28 34,27 M80,46 Q78,40 73,38 M76,34 Q72,28 66,27 M36,16 Q44,12 50,14 M54,12 Q60,10 66,14" stroke="#bdbbb5" stroke-width="1.1" fill="none" stroke-linecap="round" opacity=".85"/>`+
+  body('#22252c')+
+  face({scalp:'#86847f',skin:'ruddy',shape:'square',w:1.08,h:1.02,frown:true,brow:'#4a4440',browW:2.7,iris:'#3a3230',er:1.05,nose:'big',lips:'#c97a6a',mouth:'M44.8,65.4 Q47.4,64.2 50,64.6 Q52.6,64.2 55.2,65.4',my:.8,cleft:true,folds:true,bags:true,blush:.42,neckW:8,
+    extra:`<path d="M36,77 Q50,70 64,77 L66,88 Q50,94 34,88Z" fill="#c3262c"/><path d="M39,80 Q50,75 61,80 M41,84.6 Q50,80.6 59,84.6" stroke="#8f1a20" stroke-width="1.2" fill="none"/><path d="M44,78 Q50,82 56,78" stroke="#e45a5e" stroke-width="1" fill="none" opacity=".7"/>
+     <path d="M34,79 L38,63.5 L47.6,74.6 L41,79Z" fill="#f6f4ee" stroke="#cfcac0" stroke-width=".6"/><path d="M66,79 L62,63.5 L52.4,74.6 L59,79Z" fill="#f6f4ee" stroke="#cfcac0" stroke-width=".6"/>
+     <path d="M10,100 C14,88 24,80 35,79 L42,100Z M90,100 C86,88 76,80 65,79 L58,100Z" fill="#1b1d23"/>`})+
+  `<path d="M33,46 C31,36 33,28 40,24 Q50,19 60,23 C67,27 69,36 67,46 C66,40 64,36 61,34 Q56,30 52,32.4 Q49.6,29.6 46,31.4 Q41,31 38,35 C35,38 34,42 33,46Z" fill="#86847f"/>
+   <path d="M33,45 Q27,46 24.6,53 Q28.6,50.6 31,52.6 Q30,48 34,47.6Z M67,45 Q73,46 75.4,53 Q71.4,50.6 69,52.6 Q70,48 66,47.6Z" fill="#86847f"/>
+   <path d="M38,34 Q40,27 47,25 M46,31 Q48,25 55,23.6 M52,32 Q57,27 63,28 M61,34 Q65,31 66,38" stroke="#bdbbb5" stroke-width="1" fill="none" stroke-linecap="round"/>
+   <path d="M35,40 Q36,33 41,29 M65,40 Q64,33 59,29 M24,50 Q20,44 24,38 Q22,32 28,30 M76,50 Q80,44 76,38 Q78,32 72,30 M40,22 Q46,18 52,20 Q58,17 63,21" stroke="#66645f" stroke-width="1" fill="none" stroke-linecap="round"/>`},
+ mozart:{n:'Mozart',bg:'#3b342c',d:
+  `<path d="M31,40 C29,48 31,54 35,56 L37,46 L63,46 L65,56 C69,54 71,48 69,40Z" fill="#c9c5bd"/>`+
+  `<path d="M2,100 C4,80 22,71 50,71 C78,71 96,80 98,100Z" fill="#c22a22"/><path d="M2,100 C4,80 22,71 50,71 C38,76 26,86 22,100Z" fill="#000" opacity=".12"/>`+
+  `<path d="M14,100 C17,88 26,80 38,77 M86,100 C83,88 74,80 62,77" stroke="#e2b450" stroke-width="2.4" fill="none"/><path d="M17,94 C20,86 27,81 35,79 M83,94 C80,86 73,81 65,79" stroke="#e2b450" stroke-width="1" fill="none" stroke-dasharray="1.4 1.2"/>`+
+  face({scalp:'#d9d6cf',skin:'fair',shape:'oval',w:1.05,h:.98,er:1.1,iris:'#6b7f96',brow:'#8f7a62',browW:1.7,mouth:'M46,64.2 Q50,66.6 54,64.2',nose:'long',my:.6,blush:.36,neckW:7,
+    extra:`<path d="M42.6,69 Q50,72.6 57.4,69 L57.6,75.6 Q50,79 42.4,75.6Z" fill="#f7f5ef"/><path d="M43,72 Q50,75.4 57,72" stroke="#dcd8ce" stroke-width=".7" fill="none"/>
+     <path d="M36,79 Q50,85 64,79 L64,74 Q50,80 36,74Z" fill="#b8241e"/><path d="M37,76.4 Q50,82.4 63,76.4" stroke="#e2b450" stroke-width="1.6" fill="none" stroke-dasharray="1.6 1"/>
+     <path d="M51,79 Q58,77.6 61,83 Q56,82 54,85 Q52.6,82 49,83Z" fill="#f4f1e8"/><path d="M52.4,81 Q56,80.2 58.6,82.4" stroke="#d8d2c4" stroke-width=".6" fill="none"/>`})+
+  `<path d="M32,48 C29,26 40,18 50.6,18 C61,18 71,26 68,48 C66,38 61,31 51,30 C42,30.6 35,37 32,48Z" fill="#d9d6cf"/>
+   <path d="M38,27 Q48,22 60,24 M36,33 Q46,26 58,27 M40,30.6 Q50,27 62,30" stroke="#b9b5ad" stroke-width=".9" fill="none"/><path d="M42,22.4 Q50,20 58,21.6" stroke="#f1efea" stroke-width="1.2" fill="none"/>
+   <rect x="27" y="40" width="11" height="8.4" rx="4.2" fill="#d2cec6"/><rect x="62" y="40" width="11" height="8.4" rx="4.2" fill="#d2cec6"/>
+   <path d="M28.6,44.2 h7.8 M63.6,44.2 h7.8" stroke="#a9a59d" stroke-width="1"/><path d="M29,41.6 Q32.6,40.6 36,41.6 M64,41.6 Q67.6,40.6 71,41.6" stroke="#eeece6" stroke-width=".9" fill="none"/>`},
  bach:{n:'Bach',bg:'#23384d',d:
-  curls([[28,46,7],[27,58,7],[29,70,7],[72,46,7],[73,58,7],[71,70,7],[33,34,7],[67,34,7]],'#e9e5dc')+
-  body('#2b2f36',cravat('#f4f1ea'))+
-  face({scalp:'#efebe3',skin:'light',round:true,iris:'#4b3b2e',brow:'#9e8f7d',mouth:'M45,64.5 Q50,66 55,64.5',extra:`<path d="M41,66 Q50,74 59,66" stroke="#c98d72" stroke-width="1" fill="none" opacity=".6"/>`})+
-  `<path d="M34,42 C32,24 44,17 50,17 C58,17 68,24 66,42 C62,32 58,27 50,27 C42,27 38,32 34,42Z" fill="#efebe3"/>`+curls([[40,22,5],[50,19,5.4],[60,22,5]],'#efebe3')},
+  curls([[26,44,7.4],[25,56,7.4],[26,68,7.4],[29,80,7],[74,44,7.4],[75,56,7.4],[74,68,7.4],[71,80,7],[31,32,7.2],[69,32,7.2]],'#e6e2d8')+
+  body('#2b2f36',cravat('#f4f1ea')+`<circle cx="62" cy="90" r="1.3" fill="#8a7a5a"/><circle cx="64" cy="96" r="1.3" fill="#8a7a5a"/>`)+
+  face({scalp:'#eeeae1',skin:'light',shape:'heavy',w:1.08,h:1.02,frown:true,lids:true,bags:true,folds:true,dchin:true,iris:'#3d3028',brow:'#4a3a2e',browW:2.6,nose:'big',mouth:'M46,65.4 Q50,64.4 54,65.4',my:.6,blush:.3,neckW:9})+
+  `<path d="M33,42 C31,23 43,16 50,16 C58,16 69,23 67,42 C63,32 58,27.5 50,27.5 C42,27.5 37,32 33,42Z" fill="#eeeae1"/>`+curls([[38,21,5.2],[46,17.6,5.4],[54,17.6,5.4],[62,21,5.2]],'#eeeae1')+curls([[32,38,4.6],[68,38,4.6]],'#e6e2d8')},
  vivaldi:{n:'Vivaldi',bg:'#127a66',d:
-  `<path d="M30,44 C26,62 28,76 36,80 L64,80 C72,76 74,62 70,44Z" fill="#b5432a"/>`+
-  body('#1d1d22',`<path d="M44,77 L56,77 L55,82 L45,82Z" fill="#fff"/>`)+
-  face({scalp:'#c24e2f',skin:'fair',iris:'#4a5a3c',brow:'#a2442a',lips:'#cf7f73'})+
-  `<path d="M34,46 C30,26 42,18 52,19 C62,19 70,28 66,46 C62,36 60,30 50,30 C42,30 38,36 34,46Z" fill="#c24e2f"/><path d="M40,27 Q50,22 62,28" stroke="#9c3b22" stroke-width="1.2" fill="none"/>`},
+  `<path d="M29,44 C24,62 26,78 34,82 L42,80 L40,60Z M71,44 C76,62 74,78 66,82 L58,80 L60,60Z" fill="#b5432a"/>
+   <path d="M30,56 Q28,66 32,76 M70,56 Q72,66 68,76" stroke="#8e3220" stroke-width="1.2" fill="none"/>`+
+  body('#1d1d22',`<path d="M44,77 L56,77 L55,81 L45,81Z" fill="#fff"/><path d="M46.4,81 L45.8,90 L49.4,90 L49.6,81Z M50.4,81 L50.6,90 L54.2,90 L53.6,81Z" fill="#fff"/>`)+
+  face({scalp:'#c24e2f',skin:'fair',shape:'narrow',h:1.06,iris:'#5a4a30',brow:'#a2442a',browW:1.8,lips:'#cf7f73',nose:'hook',my:1.4,smile:true})+
+  `<path d="M33,48 C29,26 41,17 52,18 C63,18 71,28 67,48 C64,36 60,30 54,29 C50,32 44,33 40,31 C36,36 34,42 33,48Z" fill="#c24e2f"/><path d="M40,31 C44,27 50,24 58,23 M54,29 C58,26 62,24 64,25" stroke="#9c3b22" stroke-width="1.2" fill="none"/><path d="M33,48 Q31,56 34,62 M67,48 Q69,56 66,62" stroke="#c24e2f" stroke-width="3.4" fill="none" stroke-linecap="round"/>`},
  scarlatti:{n:'Scarlatti',bg:'#5a3d7a',d:
-  `<path d="M33,42 C29,62 32,72 38,76 L62,76 C68,72 71,62 67,42Z" fill="#d9d3c6"/>`+
-  body('#6b4a2b',jabot+`<path d="M38,78 L34,100 M62,78 L66,100" stroke="#3f2b18" stroke-width="1.2"/>`)+
-  face({scalp:'#e2ddd2',skin:'light',iris:'#4a3526',brow:'#6d5a45',lips:'#cf8679',extra:`<path d="M41,67 Q50,72 59,67" stroke="#c98d72" stroke-width=".9" fill="none" opacity=".5"/>`})+
-  `<path d="M34,44 C33,25 44,19 50,19 C57,19 67,25 66,44 C64,34 58,28 50,28 C42,28 36,34 34,44Z" fill="#e2ddd2"/>`+curls([[33,47,4.4],[33,55,4.4],[67,47,4.4],[67,55,4.4]],'#d9d3c6')},
+  `<path d="M31,42 C27,62 30,74 37,78 L63,78 C70,74 73,62 69,42Z" fill="#cfc9bd"/>`+
+  curls([[31,58,4.6],[32,66,4.6],[69,58,4.6],[68,66,4.6]],'#d6d0c4')+
+  body('#2c2420',jabot+`<path d="M30,84 Q34,92 33,100 M70,84 Q66,92 67,100" stroke="#b8923e" stroke-width="1.4" fill="none"/><circle cx="62" cy="92" r="4.4" fill="#e9d48a"/><path d="M62,88.6 L62,96 M59,90.6 Q62,92.6 65,90.6 M60.2,94.6 L62,96 L63.8,94.6" stroke="#c0202a" stroke-width="1.5" fill="none" stroke-linecap="round"/>`)+
+  face({scalp:'#dcd6ca',skin:'light',shape:'round',w:1.06,h:1.02,dchin:true,iris:'#3b2a20',brow:'#6d5a45',browW:1.8,lips:'#cf8679',mouth:'M45.5,64.2 Q50,66.6 54.5,64.2',nose:'long',my:.6,blush:.28,neckW:8.5})+
+  `<path d="M33,45 C32,24 44,18 50,18 C57,18 68,24 67,45 C65,34 58,27.5 50,27.5 C42,27.5 35,34 33,45Z" fill="#dcd6ca"/>`+curls([[32.6,46,4.4],[32,53,4.4],[67.4,46,4.4],[68,53,4.4]],'#d6d0c4')},
  haydn:{n:'Haydn',bg:'#8a5a20',d:
-  `<path d="M34,44 C31,60 34,70 40,74 L60,74 C66,70 69,60 66,44Z" fill="#cfc9be"/>`+
-  body('#5b3a26',cravat('#f2eee6'))+
-  face({scalp:'#d9d4ca',skin:'olive',iris:'#4a3526',brow:'#5c4a3a',mouth:'M45.5,64.2 Q50,66.4 54.5,64.2',extra:`<path d="M48,51 Q46,58 47,60 Q50,62 53,60" stroke="#a87358" stroke-width="1" fill="none" opacity=".6"/>`})+
-  `<path d="M34,46 C32,26 44,20 50,20 C58,20 68,26 66,46 C63,35 58,29 50,29 C42,29 37,35 34,46Z" fill="#d9d4ca"/>`+curls([[33,49,4],[67,49,4]],'#cfc9be',4)},
+  
+  body('#5b3a26',cravat('#f2eee6')+`<path d="M30,84 Q36,80 42,79 M70,84 Q64,80 58,79" stroke="#3f2618" stroke-width="1.4" fill="none"/>`)+
+  face({scalp:'#d9d4ca',skin:'olive',shape:'narrow',h:1.08,iris:'#2e2218',brow:'#3a2c22',browW:2,mouth:'M46,65.4 Q50,67 54,65.4',nose:'hook',my:1.6,pox:true,folds:true,blush:.18})+
+  `<path d="M34,44 C32,26 44,20 50,20 C58,20 68,26 66,44 C63,34 58,29 50,29 C42,29 37,34 34,44Z" fill="#d9d4ca"/><path d="M40,25 Q50,21 60,25" stroke="#bdb6aa" stroke-width="1" fill="none"/>`+
+  roll(34.4,45,6.6,'#d9d4ca','#b2ab9f')+roll(65.6,45,6.6,'#d9d4ca','#b2ab9f')},
  chopin:{n:'Chopin',bg:'#2d4f7c',d:
-  body('#1b1e26',`<path d="M42,77 L58,77 L56,84 L44,84Z" fill="#f4f1ea"/><path d="M44,80 L50,84 L56,80 L50,78Z" fill="#1b1e26"/>`)+
-  face({scalp:'#8a5c36',skin:'fair',iris:'#5b6f8a',brow:'#7a5536',lips:'#d38a80'})+
-  `<path d="M34,50 C30,30 40,18 54,19 C64,20 70,30 67,50 C66,40 62,34 56,31 C50,30 44,34 40,30 C36,36 35,42 34,50Z" fill="#8a5c36"/><path d="M40,30 C44,24 52,22 62,26" stroke="#6e4628" stroke-width="1.2" fill="none"/><path d="M66,44 Q70,54 66,62" stroke="#8a5c36" stroke-width="4" fill="none" stroke-linecap="round"/>`},
+  
+  body('#1b1e26',`<path d="M42,76 L46,76 L44,82Z M58,76 L54,76 L56,82Z" fill="#f4f1ea"/><path d="M42,79 L50,82 L58,79 L56,85 L50,83 L44,85Z" fill="#111318"/><path d="M47,81 h6 v3 h-6Z" fill="#111318"/>`)+
+  face({scalp:'#7a4e2c',skin:'pale',shape:'narrow',w:.94,h:1.08,iris:'#7b8a72',brow:'#6a4628',browW:1.5,lips:'#cf8a80',mouth:'M46,65.4 Q50,66 54,65.4',nose:'hook',my:1.8,blush:.14,neckW:6})+
+  `<path d="M33,52 C29,30 39,18 54,19 C66,20 72,32 67,52 C66,42 63,35 58,32 C52,32 44,30 40,26 C38,32 35,40 33,52Z" fill="#7a4e2c"/>
+   <path d="M40,26 C46,28 54,30 60,30 C64,32 66,38 67,46 M44,22 C52,22 60,24 64,30" stroke="#5e3a1e" stroke-width="1.1" fill="none"/>
+   <path d="M33,50 C32,56 33,60 36,62 C37,58 37,54 36.4,50Z M67,50 C68,56 67,60 64,62 C63,58 63,54 63.6,50Z" fill="#7a4e2c"/>`},
  chaikovski:{n:'Chaikovski',bg:'#4a5568',d:
   body('#2a2d33',`<path d="M42,77 L58,77 L55,83 L45,83Z" fill="#f4f1ea"/>`)+
-  face({scalp:'#dcd7cf',skin:'light',iris:'#4b5a6b',brow:'#cfcac2',mouth:'M46,62.5 Q50,63.5 54,62.5'})+
-  `<path d="M36,56 C36,70 44,80 50,80 C56,80 64,70 64,56 C60,62 56,61 50,61 C44,61 40,62 36,56Z" fill="#d6d1c8"/><path d="M42,61 Q50,57 58,61" stroke="#bdb7ad" stroke-width="2.4" fill="none" stroke-linecap="round"/>`+
-  `<path d="M34,46 C32,28 42,20 52,21 C62,22 68,30 66,46 C64,38 60,32 54,31 C48,30 42,34 38,30 C36,36 35,40 34,46Z" fill="#dcd7cf"/>`},
+  face({scalp:'#dcd7cf',skin:'light',w:1.02,iris:'#4f6f96',brow:'#a9a49c',browW:2,frown:true,mouth:'M46,62.5 Q50,63.5 54,62.5',bags:true})+
+  `<path d="M35,52 C35,72 43,82 50,82 C57,82 65,72 65,52 C63,56 61,59 58,60 C54,58.4 46,58.4 42,60 C39,59 37,56 35,52Z" fill="#cfcac2"/>
+   <path d="M38,64 Q41,72 44,76 M62,64 Q59,72 56,76 M46,66 Q47,74 48,79 M54,66 Q53,74 52,79" stroke="#aaa59c" stroke-width=".9" fill="none" opacity=".8"/>
+   <path d="M41.5,61.6 Q46,57.4 50,59.4 Q54,57.4 58.5,61.6 Q54,61 50,61.2 Q46,61 41.5,61.6Z" fill="#bab4ab"/><path d="M47.4,63.4 Q50,64.6 52.6,63.4" stroke="#8c4a3c" stroke-width="1" fill="none"/>`+
+  `<path d="M34,46 C32,30 40,20 52,20 C63,21 68,30 66,46 C65,38 62,33 58,31 C54,29 46,29 42,31 C38,33 35,38 34,46Z" fill="#dcd7cf"/><path d="M40,28 C46,24 54,24 62,28 M42,31 C47,27 54,27 60,30" stroke="#c0bab1" stroke-width="1" fill="none"/>`},
  verdi:{n:'Verdi',bg:'#1f6f43',d:
-  body('#1e2026',`<path d="M38,78 Q50,90 62,78 L60,96 Q50,100 40,96Z" fill="#f2efe9"/>`)+
-  face({scalp:'#5a524a',skin:'olive',iris:'#3f3a33',brow:'#4a4038',mouth:'M46,62.5 Q50,63.5 54,62.5'})+
-  `<path d="M35,54 C35,72 44,84 50,84 C56,84 65,72 65,54 C61,61 56,60 50,60 C44,60 39,61 35,54Z" fill="#8e8a84"/><path d="M41,60 Q50,56 59,60" stroke="#7b7670" stroke-width="2.6" fill="none" stroke-linecap="round"/>`+
-  `<path d="M34,46 C32,28 42,20 52,21 C62,22 68,30 66,46 C64,36 58,30 50,30 C44,30 38,34 34,46Z" fill="#5a524a"/><path d="M34,46 L33,56 L36,52Z M66,46 L67,56 L64,52Z" fill="#7c7670"/>`},
+  body('#1e2026',`<path d="M30,82 C38,76 46,78 50,84 C54,78 62,76 70,82 L66,92 C58,86 54,88 50,96 C46,88 42,86 34,92Z" fill="#f4f2ec"/><path d="M36,86 Q42,84 48,90 M64,86 Q58,84 52,90" stroke="#d8d4ca" stroke-width="1" fill="none"/>`)+
+  face({scalp:'#6a645e',skin:'olive',iris:'#2e2620',brow:'#3a342e',browW:2.2,mouth:'M46,62.5 Q50,63.5 54,62.5',frown:true,bags:true})+
+  `<path d="M35,52 C35,72 43,82 50,82 C57,82 65,72 65,52 C63,56 61,59 58,60 C54,58.4 46,58.4 42,60 C39,59 37,56 35,52Z" fill="#5c5650"/>
+   <path d="M38,64 Q41,72 44,77 M62,64 Q59,72 56,77 M47,67 Q47.6,74 48.6,80 M53,67 Q52.4,74 51.4,80" stroke="#8d8781" stroke-width="1" fill="none" opacity=".9"/>
+   <path d="M41,61.6 Q46,57 50,59.2 Q54,57 59,61.6 Q54,61 50,61.2 Q46,61 41,61.6Z" fill="#4a4540"/><path d="M47.4,63.4 Q50,64.4 52.6,63.4" stroke="#8c4a3c" stroke-width="1" fill="none"/>
+   <path d="M34,46 C33,40 34,36 36,34 L64,34 C66,36 67,40 66,46 C64,40 62,38 60,37 L40,37 C38,38 36,40 34,46Z" fill="#6a645e"/>
+   <path d="M24,37 Q50,31 76,37 Q74,41 66,39.6 Q50,37.4 34,39.6 Q26,41 24,37Z" fill="#141518"/>
+   <path d="M34,38 L36,12 Q50,9 64,12 L66,38 Q50,35 34,38Z" fill="#141518"/><path d="M35,33 Q50,30 65,33 L65.4,36.6 Q50,33.6 34.6,36.6Z" fill="#2c2e33"/><path d="M38,14 Q40,24 39,34" stroke="#3a3c42" stroke-width="1.4" fill="none"/>`},
  clara:{n:'Clara Schumann',bg:'#7a2e5a',d:
-  `<ellipse cx="50" cy="26" rx="10" ry="7" fill="#3a2a22"/>`+
-  body('#2b2b3a',`<path d="M40,77 Q50,86 60,77" stroke="#e9e3d6" stroke-width="2.4" fill="none"/><circle cx="50" cy="84" r="2" fill="#e6c36a"/>`)+
-  face({scalp:'#3a2a22',skin:'fair',iris:'#4a3a30',brow:'#3a2a22',lips:'#c76f6b',browW:1.3})+
-  `<path d="M34,52 C30,32 40,24 50,24 C60,24 70,32 66,52 C64,42 60,34 50,33 C40,34 36,42 34,52Z" fill="#3a2a22"/><path d="M50,24 L50,33" stroke="#2a1c15" stroke-width="1"/><path d="M34,48 Q32,58 36,60 M66,48 Q68,58 64,60" stroke="#3a2a22" stroke-width="4" fill="none" stroke-linecap="round"/>`},
+  `<ellipse cx="50" cy="27" rx="10" ry="6.4" fill="#2e2019"/>`+
+  body('#22222e',`<path d="M38,78 Q50,90 62,78 L60,82 Q50,92 40,82Z" fill="#f1ece0"/><path d="M41,80.4 Q50,89 59,80.4" stroke="#d6cfbf" stroke-width=".8" fill="none" stroke-dasharray="1.4 1"/><circle cx="50" cy="90" r="2.2" fill="#e6c36a"/><circle cx="50" cy="90" r="1" fill="#b23a3a"/>`)+
+  face({scalp:'#2e2019',skin:'fair',shape:'oval',h:1.04,er:1.12,iris:'#3a2a20',brow:'#2e2019',lips:'#c76f6b',browW:1.4,nose:'long',my:1,mouth:'M46,64.2 Q50,65.2 54,64.2'})+
+  `<path d="M34,52 C30,32 40,24 50,24 C60,24 70,32 66,52 C65,44 62,37 50,34.5 C38,37 35,44 34,52Z" fill="#2e2019"/><path d="M50,24 L50,34.5" stroke="#5a4232" stroke-width=".9"/>
+   <path d="M34,44 C33,50 34,55 37,57 C38.6,54 38.4,49 37,45Z M66,44 C67,50 66,55 63,57 C61.4,54 61.6,49 63,45Z" fill="#2e2019"/><path d="M35,48 Q36,52 37,55 M65,48 Q64,52 63,55" stroke="#4a362a" stroke-width=".7" fill="none"/>
+   <path d="M38,30 Q44,28 49,30 M62,30 Q56,28 51,30" stroke="#4a362a" stroke-width=".8" fill="none"/>`},
  fanny:{n:'Fanny Mendelssohn',bg:'#b05a2a',d:
-  body('#3c4a6b',`<path d="M38,78 Q50,88 62,78" stroke="#f1ece2" stroke-width="3" fill="none"/>`)+
-  face({scalp:'#2e211a',skin:'fair',iris:'#3f2f26',brow:'#2e211a',lips:'#c9726c',browW:1.3})+
-  `<path d="M35,48 C31,30 41,22 50,22 C59,22 69,30 65,48 C62,38 58,31 50,31 C42,31 38,38 35,48Z" fill="#2e211a"/><path d="M50,22 L50,31" stroke="#1d140f" stroke-width="1"/>`+curls([[32,50,4.2],[31,57,4],[68,50,4.2],[69,57,4]],'#2e211a')},
+  `<ellipse cx="50" cy="22" rx="7" ry="5" fill="#2e211a"/>`+
+  body('#3c4a6b',`<path d="M32,82 Q50,90 68,82" stroke="#f1ece2" stroke-width="3" fill="none"/>`+pearls(42,58,82,3.4,7,1))+
+  face({scalp:'#2e211a',skin:'fair',shape:'oval',er:1.12,iris:'#2e221a',brow:'#2e211a',lips:'#c9726c',browW:1.5,smile:true})+
+  `<path d="M35,48 C31,30 41,23 50,23 C59,23 69,30 65,48 C62,38 58,32 50,31.4 C42,32 38,38 35,48Z" fill="#2e211a"/><path d="M50,23 L50,31.4" stroke="#5a4232" stroke-width=".9"/>`+
+  curls([[32.6,47,3.6],[31.8,53,3.6],[32.6,59,3.4],[67.4,47,3.6],[68.2,53,3.6],[67.4,59,3.4]],'#2e211a',3.6)+
+  `<circle cx="35.6" cy="56" r="1.2" fill="#e6c36a"/><circle cx="64.4" cy="56" r="1.2" fill="#e6c36a"/>`},
  hildegarda:{n:'Hildegarda de Bingen',bg:'#6b5a2e',d:
+  `<circle cx="50" cy="40" r="27" fill="#e9c45a"/><circle cx="50" cy="40" r="23.5" fill="none" stroke="#f6dc8a" stroke-width="1.4"/>`+
   `<path d="M24,100 C22,60 30,24 50,22 C70,24 78,60 76,100Z" fill="#1f1f24"/>`+
   body('#26262b')+
   `<path d="M33,46 C33,30 42,26 50,26 C58,26 67,30 67,46 L67,74 Q50,80 33,74Z" fill="#f4f2ec"/>`+
-  face({scalp:'#f4f2ec',skin:'light',iris:'#4a5a4a',brow:'#7a6a5a',lips:'#c98078',browW:1.2})+
-  `<path d="M35,40 C38,32 44,30 50,30 C56,30 62,32 65,40" stroke="#e2ded4" stroke-width="2.4" fill="none"/>`},
+  face({scalp:'#f4f2ec',skin:'light',shape:'oval',iris:'#4a5a4a',brow:'#7a6a5a',lips:'#c98078',browW:1.2,lids:true,mouth:'M46,64.4 Q50,65.6 54,64.4'})+
+  `<path d="M35,40 C38,32 44,30 50,30 C56,30 62,32 65,40" stroke="#e2ded4" stroke-width="2.4" fill="none"/><path d="M35,72 Q50,80 65,72" stroke="#e2ded4" stroke-width="1.6" fill="none"/>`},
  strozzi:{n:'Barbara Strozzi',bg:'#8c2f39',d:
-  `<path d="M30,48 C26,66 30,80 38,84 L44,74Z M70,48 C74,66 70,80 62,84 L56,74Z" fill="#8b4a26"/>`+
-  body('#6d2a36',`<path d="M30,84 Q50,78 70,84" stroke="#e9d9b6" stroke-width="2.2" fill="none"/>`)+
-  face({scalp:'#9a5528',skin:'fair',iris:'#4a3526',brow:'#7a3f20',lips:'#c9625e',browW:1.2})+
-  `<path d="M34,50 C30,30 40,22 50,22 C60,22 70,30 66,50 C64,38 58,31 50,31 C42,31 36,38 34,50Z" fill="#9a5528"/><circle cx="62" cy="30" r="3" fill="#f2f0ea"/><circle cx="66" cy="34" r="2.4" fill="#e9b4c0"/><circle cx="58" cy="27" r="2" fill="#f2f0ea"/>`},
+  `<path d="M30,48 C25,66 28,80 36,86 L44,74Z M70,48 C75,66 72,80 64,86 L56,74Z" fill="#8b4a26"/>`+
+  `<path d="M6,100 C8,86 26,78 50,78 C74,78 92,86 94,100Z" fill="#f2cfb2"/><path d="M14,100 C18,94 30,90 50,92 C70,90 82,94 86,100Z" fill="#f4efe4"/><path d="M10,100 Q16,96 24,97 L28,100Z M90,100 Q84,96 76,97 L72,100Z" fill="#6d2a36"/>`+
+  pearls(40,60,84,3.6,9,1.1)+
+  face({scalp:'#9a5528',skin:'fair',shape:'round',er:1.08,iris:'#3a2a1e',brow:'#7a3f20',lips:'#c9625e',browW:1.3,smile:true,blush:.3})+
+  `<path d="M34,50 C30,30 40,22 50,22 C60,22 70,30 66,50 C64,38 58,31 50,30.6 C42,31 36,38 34,50Z" fill="#9a5528"/><path d="M38,30 Q44,26 50,27 Q56,26 62,30" stroke="#7a3f1c" stroke-width="1" fill="none"/>`+
+  `<circle cx="36" cy="28" r="3" fill="#f2f0ea"/><circle cx="41" cy="24" r="2.6" fill="#e9b4c0"/><circle cx="47" cy="22" r="2.6" fill="#f2f0ea"/><circle cx="53" cy="22" r="2.6" fill="#e9b4c0"/><circle cx="59" cy="24" r="2.6" fill="#f2f0ea"/><circle cx="64" cy="28" r="3" fill="#e9b4c0"/><circle cx="35" cy="56" r="1.3" fill="#f7f3ea"/><circle cx="65" cy="56" r="1.3" fill="#f7f3ea"/>`},
  jacquet:{n:'Élisabeth Jacquet de La Guerre',bg:'#2f6b8a',d:
-  body('#3b5a7a',`<path d="M38,80 Q50,88 62,80" stroke="#f3eee2" stroke-width="2.6" fill="none"/>`+[40,44,48,52,56,60].map((x,i)=>`<circle cx="${x}" cy="${83+Math.sin(i/5*Math.PI)*2.4}" r="1.3" fill="#f7f4ec"/>`).join(''))+
-  face({scalp:'#3b2a20',skin:'fair',iris:'#3f2f26',brow:'#3b2a20',lips:'#c76b68',browW:1.2})+
-  curls([[36,32,5],[44,26,5],[52,24,5.4],[60,26,5],[66,32,5],[34,40,4.4],[67,40,4.4],[32,48,4],[68,48,4]],'#3b2a20')},
+  body('#3b5a9a',`<path d="M34,82 Q50,90 66,82" stroke="#f3eee2" stroke-width="2.6" fill="none"/><path d="M26,90 Q36,84 44,86 M74,90 Q64,84 56,86" stroke="#e6c36a" stroke-width="1.6" fill="none"/>`+pearls(41,59,83,3.4,8,1.2))+
+  `<path d="M40,22 L42,6 Q50,3 58,6 L60,22Z" fill="#f6f2e8"/><path d="M43,8 L44,21 M47,6 L47.6,21 M53,6 L52.4,21 M57,8 L56,21" stroke="#d8d0be" stroke-width=".8"/>`+
+  face({scalp:'#3b2a20',skin:'fair',shape:'oval',er:1.08,iris:'#3f2f26',brow:'#3b2a20',lips:'#c76b68',browW:1.3,mouth:'M45.6,64.2 Q50,66.2 54.4,64.2'})+
+  curls([[36,32,5],[43,26.4,5],[50,24.6,5.2],[57,26.4,5],[64,32,5],[34,40,4.4],[66,40,4.4],[32.6,48,4],[67.4,48,4],[33,55,3.6],[67,55,3.6]],'#3b2a20')+
+  `<circle cx="35.6" cy="58.6" r="1.4" fill="#f7f3ea"/><circle cx="64.4" cy="58.6" r="1.4" fill="#f7f3ea"/>`},
  martines:{n:'Marianna Martines',bg:'#4a6b3a',d:
-  body('#8a6a9a',`<path d="M38,78 Q50,86 62,78" stroke="#f7f2e6" stroke-width="2.6" fill="none"/><path d="M47,80 L50,86 L53,80Z" fill="#c7a0d0"/>`)+
-  face({scalp:'#e8e3da',skin:'fair',iris:'#4a3526',brow:'#8a7a66',lips:'#cf7a74',browW:1.2})+
-  `<path d="M35,46 C32,22 40,12 50,12 C60,12 68,22 65,46 C62,34 58,30 50,30 C42,30 38,34 35,46Z" fill="#e8e3da"/>`+curls([[40,18,5],[50,14,5.4],[60,18,5],[35,30,4.4],[65,30,4.4]],'#ece8e0')+`<circle cx="56" cy="16" r="2.4" fill="#d07a9a"/>`},
+  body('#c8a0c8',`<path d="M34,80 Q50,90 66,80" stroke="#f7f2e6" stroke-width="3" fill="none"/><path d="M36,82 Q50,92 64,82" stroke="#fff" stroke-width="1" fill="none" stroke-dasharray="1.6 1.2"/><path d="M46,84 Q50,80 54,84 Q50,88 46,84Z" fill="#e48aa8"/>`)+
+  face({scalp:'#e5e0d7',skin:'fair',shape:'round',iris:'#3f2f26',brow:'#8a7a66',lips:'#cf7a74',browW:1.2,smile:true,blush:.32})+
+  `<path d="M35,46 C32,22 40,10 50,10 C60,10 68,22 65,46 C62,34 58,30 50,30 C42,30 38,34 35,46Z" fill="#e5e0d7"/>`+curls([[40,16,5],[50,11,5.6],[60,16,5],[35,28,4.6],[65,28,4.6],[34,38,4],[66,38,4]],'#ebe7df')+
+  `<circle cx="57" cy="12" r="3" fill="#e48aa8"/><circle cx="61" cy="15" r="2.2" fill="#f2b6c8"/><path d="M42,13 Q46,9 50,14" stroke="#7aa0c8" stroke-width="1.6" fill="none"/>`},
  lili:{n:'Lili Boulanger',bg:'#3b4a7a',d:
-  body('#1f2a44',`<path d="M42,77 L50,90 L58,77" stroke="#efeae0" stroke-width="2.2" fill="none"/>`)+
-  face({scalp:'#2a1f18',skin:'fair',iris:'#3f3328',brow:'#2a1f18',lips:'#c46a68',browW:1.3})+
-  `<path d="M33,58 C28,34 38,22 50,22 C62,22 72,34 67,58 C66,46 62,38 56,34 C52,38 44,38 38,36 C35,42 34,50 33,58Z" fill="#2a1f18"/>`},
+  `<ellipse cx="62" cy="40" rx="7" ry="6" fill="#241a14"/>`+
+  body('#1f2a44',`<path d="M40,77 Q50,84 60,77 L58,80 Q50,87 42,80Z" fill="#efeae0"/>`)+
+  face({scalp:'#241a14',skin:'pale',shape:'narrow',w:.96,h:1.04,er:1.22,iris:'#2e231b',brow:'#241a14',lips:'#c46a68',browW:1.4,mouth:'M46,64.6 Q50,65.4 54,64.6',my:.6,blush:.16})+
+  `<path d="M33,56 C28,34 38,22 50,22 C62,22 72,34 67,56 C66,46 64,40 60,36 C56,34 50,34 46,31 C42,33 38,36 36,40 C34,45 33,50 33,56Z" fill="#241a14"/>
+   <path d="M46,31 C42,28 40,27 37,30 M48,27 C54,24 62,26 66,32" stroke="#3a2c22" stroke-width="1" fill="none"/>`},
  price:{n:'Florence Price',bg:'#8a3a6b',d:
-  body('#3a4a6a',[42,46,50,54,58].map((x,i)=>`<circle cx="${x}" cy="${81+Math.sin(i/4*Math.PI)*2.2}" r="1.6" fill="#f5f1e8"/>`).join(''))+
-  face({scalp:'#1f1612',skin:'dark',iris:'#2b1d14',brow:'#1f1612',lips:'#7c3f3a',browW:1.4})+
-  `<path d="M34,50 C30,30 40,22 50,22 C60,22 70,30 66,50 C64,40 60,32 50,31 C42,31 37,38 34,50Z" fill="#1f1612"/>`+curls([[38,27,4.6],[46,23,4.8],[55,23,4.8],[63,28,4.6]],'#1f1612')+
-  `<path d="M38,49 h9 M53,49 h9 M47,49 h6" stroke="#2a2a2a" stroke-width="1" fill="none"/><rect x="38.4" y="46.4" width="9" height="5.6" rx="2.2" fill="none" stroke="#2a2a2a" stroke-width="1"/><rect x="52.6" y="46.4" width="9" height="5.6" rx="2.2" fill="none" stroke="#2a2a2a" stroke-width="1"/>`},
+  body('#3a4a6a',pearls(40,60,81,3.6,9,1.3))+
+  face({scalp:'#1f1612',skin:'dark',shape:'round',iris:'#2b1d14',brow:'#1f1612',lips:'#7c3f3a',browW:1.4,smile:true,mouth:'M45,64 Q50,67.4 55,64',blush:.12})+
+  `<path d="M34,50 C30,30 40,22 50,22 C60,22 70,30 66,50 C64,40 60,32 50,31 C42,31 37,38 34,50Z" fill="#1f1612"/>`+
+  `<path d="M36,30 Q40,24 46,27 Q50,22 55,26 Q60,22 64,29 Q66,32 66,36 Q62,30 57,31 Q53,28 50,31 Q46,28 42,31 Q38,30 34,36 Q34,32 36,30Z" fill="#2c211b"/><path d="M38,28 Q42,26 45,29 M51,26 Q54,25 56,28 M58,27 Q62,27 63,31" stroke="#4a3a30" stroke-width=".8" fill="none"/>`+
+  `<circle cx="43" cy="49" r="4.4" fill="#fff" fill-opacity=".12" stroke="#c9b27a" stroke-width="1.1"/><circle cx="57" cy="49" r="4.4" fill="#fff" fill-opacity=".12" stroke="#c9b27a" stroke-width="1.1"/><path d="M47.4,48.6 Q50,47.4 52.6,48.6 M38.6,48.4 L35.4,47.4 M61.4,48.4 L64.6,47.4" stroke="#c9b27a" stroke-width="1" fill="none"/>`+
+  `<circle cx="35.6" cy="56" r="1.4" fill="#f7f3ea"/><circle cx="64.4" cy="56" r="1.4" fill="#f7f3ea"/>`},
  rodrigo:{n:'María Rodrigo',bg:'#a0522d',d:
-  `<ellipse cx="50" cy="24" rx="9" ry="6.5" fill="#241a14"/>`+
-  body('#3a2a3a',`<path d="M40,77 Q50,85 60,77" stroke="#f0ebe0" stroke-width="2.2" fill="none"/><circle cx="50" cy="83" r="2.2" fill="#c9a24a"/>`)+
-  face({scalp:'#241a14',skin:'olive',iris:'#2f241c',brow:'#241a14',lips:'#b9645d',browW:1.4})+
-  `<path d="M34,50 C30,30 40,23 50,23 C60,23 70,30 66,50 C64,40 60,32 51,32 C44,32 38,38 34,50Z" fill="#241a14"/><path d="M51,23 Q46,28 40,32" stroke="#3a2c22" stroke-width="1" fill="none"/>`}
+  body('#2e2a36',`<path d="M42,77 L50,88 L58,77" stroke="#f0ebe0" stroke-width="2.2" fill="none"/><circle cx="50" cy="88" r="1.8" fill="#c9a24a"/>`)+
+  face({scalp:'#241a14',skin:'olive',shape:'round',iris:'#2f241c',brow:'#241a14',lips:'#b9645d',browW:1.5,mouth:'M46,64.4 Q50,65.8 54,64.4'})+
+  `<path d="M33,56 C29,32 38,22 50,22 C62,22 71,32 67,56 C66,48 64,42 62,38 C60,34 54,33 44,34 C40,34 37,36 36,40 C34,44 33,50 33,56Z" fill="#241a14"/>
+   <path d="M44,34 Q38,30 42,26 M46,25 Q52,28 58,26 M60,30 Q64,34 64,40 M35,44 Q37,48 35,52 M65,44 Q63,48 65,52" stroke="#3e3026" stroke-width="1.1" fill="none"/>`}
 };
+P.profe={n:'Profe',bg:'#1d5bd8',d:
+  body('#1e2125',`<path d="M40,77 L50,86 L60,77 L58,74 L50,80 L42,74Z" fill="#c9d4df"/><path d="M50,86 L50,100" stroke="#8a9099" stroke-width="1.4"/><path d="M36,78 Q33,90 34,100 M64,78 Q67,90 66,100" stroke="#2e3238" stroke-width="2" fill="none"/>`)+
+  face({skin:'olive',scalp:'#352a23',iris:'#4a3626',brow:'#2e241e',browW:2,
+    mouth:'M45.6,63.8 Q50,66.2 54.4,63.8',
+    extra:`<path d="M37,52 C37,64 43,71 50,71 C57,71 63,64 63,52 C61,62 56,67 50,67 C44,67 39,62 37,52Z" fill="#4a3a30" opacity=".13"/><path d="M45,61.8 Q50,60.8 55,61.8" stroke="#4a3a30" stroke-width="2" opacity=".1" fill="none" stroke-linecap="round"/><path d="M46.8,66.6 Q50,67.6 53.2,66.6" stroke="#b07e5b" stroke-width=".8" fill="none" opacity=".5" stroke-linecap="round"/><path d="M45.4,63 Q45.2,63.8 45.8,64.3 M54.6,63 Q54.8,63.8 54.2,64.3" stroke="#8c4a3c" stroke-width=".7" fill="none" stroke-linecap="round" opacity=".8"/><path d="M38.6,49.4 L37.2,48.8 M38.6,50.4 L37.2,50.8 M61.4,49.4 L62.8,48.8 M61.4,50.4 L62.8,50.8" stroke="#a87358" stroke-width=".55" opacity=".5" stroke-linecap="round"/>`})+
+  `<path d="M34,47 C31,31 38,23 45,21.5 C47,19 52,18.5 55,20 C61,20 69,26 67,46 C65,38 62,33 58,31.5 C55,33.5 50,33 46,31 C42,33 38,37 36,42Z" fill="#352a23"/>
+   <path d="M40,25 Q42,20 46,21 Q48,17.5 52,19 Q56,17 58,20.5 Q63,20 63.5,24.5 Q61,23 58,24 Q55,22 52,23.5 Q48,22 45,24.5 Q42,23.5 40,25Z" fill="#3f332b"/>
+   <path d="M44,24 Q47,27 46,30 M50,22.5 Q52,26 51,30 M56,23.5 Q58,27 57,30.5" stroke="#5a4c42" stroke-width=".9" fill="none" opacity=".75"/>
+   <path d="M34.2,44 C33.8,40 34.6,37 36,35 L37.6,37.5 C36.4,40 36,42 36.2,44.5Z" fill="#8f8a84" opacity=".85"/>
+   <path d="M65.8,43 C66.2,39 65.4,36 64,34 L62.4,36.5 C63.6,39 64,41 63.8,43.5Z" fill="#8f8a84" opacity=".85"/>
+   <path d="M38,33 Q37,36 36.8,39 M62,32 Q63,35 63.2,38" stroke="#b0aaa4" stroke-width=".9" fill="none" opacity=".7"/>`};
 window.AV2=P;
 })();
 
@@ -1224,7 +1361,7 @@ function sanitize(s){const P=L.perms||{},cur=getState();let fixed=false;const sa
   return fixed}
 function hostPublish(){const cur=getState();const actor=L.nextActor||{id:L.myId,name:'Profe'};const act=describe(L.lastPub,cur,actor.id);L.lastPub=cur;L.nextActor=null;
   if(act&&actor.id!==L.myId)actToast(actor.name,act);
-  pub(T().host,{t:'state',s:cur,act,by:actor.name,actor:actor.id,fix:!!L.forceApply,locked:L.locked,perms:L.perms,acts:!!L.perms.acts,games:!!L.perms.games,clearN:L.clearN||0,from:L.myId,at:Date.now()},true)}
+  pub(T().host,{t:'state',s:cur,act,by:actor.name,actor:actor.id,fix:!!L.forceApply,taken:[...L.people].map(([id,pp])=>[id,pp.av]),locked:L.locked,perms:L.perms,acts:!!L.perms.acts,games:!!L.perms.games,clearN:L.clearN||0,from:L.myId,at:Date.now()},true)}
 function sendState(){if(L.role==='host')hostPublish();
   else if(L.role==='student'){if(L.locked){if(L.lastHost){applyState(L.lastHost);toast('Ahora solo puedes mirar')}return}
     pub(T().stu,{t:'state',s:getState(),from:L.myId,name:L.name})}}
@@ -1240,7 +1377,7 @@ function connect(idx,onOk,onFail){
   cli.on('error',()=>{});
 }
 function hostBar(){const n=L.people.size;$l('lvbar').hidden=false;
-  $l('lvbar').innerHTML=`<span class="lvdot"></span><b>Sala ${L.code}</b><span>${n} conectado${n===1?'':'s'}</span><button id="lv-show" type="button">Código</button><button id="lv-lock" type="button">${L.locked?'🔓 Desbloquear':'🔒 Bloquear móviles'}</button><button id="lv-perms" type="button">⚙️ Permisos</button><button id="lv-stop" type="button">Cerrar sala</button>`;
+  $l('lvbar').innerHTML=`<span class="lvdot"></span>${window.avSVG?avSVG('profe',26):''}<b>Sala ${L.code}</b><span>${n} conectado${n===1?'':'s'}</span><button id="lv-show" type="button">Código</button><button id="lv-lock" type="button">${L.locked?'🔓 Desbloquear':'🔒 Bloquear móviles'}</button><button id="lv-perms" type="button">⚙️ Permisos</button><button id="lv-stop" type="button">Cerrar sala</button>`;
   $l('lv-show').onclick=()=>openModal();$l('lv-lock').onclick=()=>{L.locked=!L.locked;hostPublish();hostBar();toast(L.locked?'Móviles bloqueados: solo miran':'Los móviles ya pueden mover')};
   $l('lv-stop').onclick=endAll;
   $l('lv-perms').onclick=()=>{$l('permpanel').hidden=!$l('permpanel').hidden;renderPerms()};
@@ -1255,7 +1392,8 @@ function startHost(){
       const name=String(m.name||'Alumno/a').slice(0,20);
       if(!L.people.has(m.from)){L.people.set(m.from,{name,av:m.av});hostBar();toast(name+' se ha unido')}
       L.people.get(m.from).seen=Date.now();
-      if(m.t==='hello'){hostPublish();return}
+      if(m.t==='hello'){const pp=L.people.get(m.from);if(pp){pp.av=m.av;pp.name=name}hostBar();duelCheck(m.from);hostPublish();return}
+      if(m.t==='duelans'){duelAnswer(m);return}
       if(m.t==='bye'){L.people.delete(m.from);hostBar();return}
       if(m.t==='hans'){if(window.__onHAns){window.__suppressSync=true;try{window.__onHAns(m)}finally{window.__suppressSync=false}}L.nextActor={id:m.from,name};hostPublish();return}
       if(m.t==='state'){if(L.locked){hostPublish();return}
@@ -1269,16 +1407,68 @@ function startHost(){
     $l('lv-start').hidden=true;$l('lv-hostview').hidden=false;$l('lv-codebig').textContent=L.code;msg('');hostBar();
   },err=>msg(err));
 }
+// ---------- duelo por el avatar: si dos eligen el mismo compositor, una pregunta sobre él; quien acierte antes se lo queda ----------
+const D={};let duelN=0;
+const CENT=y=>{const c=Math.floor((y-1)/100)+1;return ['','I','II','III','IV','V','VI','VII','VIII','IX','X','XI','XII','XIII','XIV','XV','XVI','XVII','XVIII','XIX','XX'][c]||String(c)};
+function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+function makeDuelQ(av,round){const I=window.__AVINFO||{},A=window.AVATARS||{};const f=I[av]||['',''];const n=(A[av]||{}).n||av;
+  const year=parseInt(f[0]);const country=(f[0].split('·')[1]||'').trim();const others=Object.keys(I).filter(k=>k!==av);
+  const kinds=['fact','century','country'];const kind=kinds[(round+Math.floor(Math.random()*3))%3];
+  if(kind==='century'&&year){const c=CENT(year);const pool=['XI','XVI','XVII','XVIII','XIX'].filter(x=>x!==c);const opts=shuffle([c,...shuffle(pool).slice(0,3)]);return{q:`¿En qué siglo nació ${n}?`,opts:opts.map(o=>'Siglo '+o),ok:opts.indexOf(c)}}
+  if(kind==='country'&&country){const pool=[...new Set(others.map(k=>(I[k][0].split('·')[1]||'').trim()).filter(x=>x&&x!==country))];const opts=shuffle([country,...shuffle(pool).slice(0,3)]);return{q:`¿De dónde era ${n}?`,opts,ok:opts.indexOf(country)}}
+  const fk=shuffle(others.slice()).slice(0,2);const opts=shuffle([f[1],...fk.map(k=>I[k][1])]);return{q:`¿Cuál de estas cosas es verdad sobre ${n}?`,opts,ok:opts.indexOf(f[1])}}
+function duelCheck(id){const me=L.people.get(id);if(!me||!me.av)return;const b=avBase(me.av);
+  if(Object.values(D).some(d=>d.av===b&&!d.done))return;
+  const holder=[...L.people].find(([pid,pp])=>pid!==id&&avBase(pp.av)===b);if(!holder)return;
+  const d={id:'d'+(++duelN),av:b,a:holder[0],b:id,round:0,ans:{},done:false};D[d.id]=d;
+  toast('⚔️ Duelo por '+((window.AVATARS||{})[b]||{}).n+': '+holder[1].name+' contra '+me.name);duelRound(d)}
+function duelRound(d){d.round++;d.ans={};d.Q=makeDuelQ(d.av,d.round);d.t0=Date.now();
+  const na=L.people.get(d.a)||{},nb=L.people.get(d.b)||{};
+  pub(T().host,{t:'duel',id:d.id,to:[d.a,d.b],av:d.av,names:[na.name,nb.name],round:d.round,q:d.Q.q,opts:d.Q.opts},false);
+  clearTimeout(d.timer);d.timer=setTimeout(()=>duelEnd(d,null),25000)}
+function duelAnswer(m){const d=D[m.id];if(!d||d.done||(m.from!==d.a&&m.from!==d.b)||d.ans[m.from]!=null||m.round!==d.round)return;
+  d.ans[m.from]=m.c|0;if((m.c|0)===d.Q.ok){duelEnd(d,m.from);return}
+  if(d.ans[d.a]!=null&&d.ans[d.b]!=null){if(d.round<3)setTimeout(()=>duelRound(d),1200);else duelEnd(d,null)}}
+function duelEnd(d,winner){if(d.done)return;clearTimeout(d.timer);d.done=true;
+  const w=winner||d.a,l=w===d.a?d.b:d.a;const W=L.people.get(w)||{},Lo=L.people.get(l)||{};
+  if(Lo)Lo.av='';
+  pub(T().host,{t:'duelres',id:d.id,to:[d.a,d.b],av:d.av,winner:w,loser:l,wname:W.name,lname:Lo.name,right:d.Q.opts[d.Q.ok],byAnswer:!!winner},false);
+  toast('⚔️ '+(W.name||'?')+' se queda con '+((window.AVATARS||{})[d.av]||{}).n);hostBar();hostPublish()}
+// ---- en el móvil ----
+function duelUI(m){if(!(m.to||[]).includes(L.myId))return;let ov=document.getElementById('duel');if(!ov){ov=document.createElement('div');ov.id='duel';document.body.appendChild(ov)}
+  const A=window.AVATARS||{};const n=(A[m.av]||{}).n||'';const rival=(m.names||[])[(m.to.indexOf(L.myId)+1)%2]||'otra persona';
+  if(m.t==='duel'){L.duel={id:m.id,round:m.round,sent:false};
+    ov.innerHTML=`<div class="dbox"><div class="dav">${avSVG(m.av,90)}<span>⚔️</span></div><h3>¡Duelo por ${esc(n)}!</h3><p class="dsub">Tú y ${esc(rival)} lo queréis. Quien acierte antes se lo queda.${m.round>1?' <b>Ronda '+m.round+'</b>':''}</p><p class="dq">${esc(m.q)}</p><div class="dopts">${m.opts.map((o,i)=>`<button type="button" data-dop="${i}">${esc(o)}</button>`).join('')}</div><p class="dwait" hidden>Respuesta enviada… esperando.</p></div>`;
+    ov.hidden=false;
+    ov.querySelectorAll('[data-dop]').forEach(b=>b.onclick=()=>{if(L.duel.sent)return;L.duel.sent=true;b.classList.add('chosen');ov.querySelectorAll('[data-dop]').forEach(x=>x.disabled=true);ov.querySelector('.dwait').hidden=false;
+      pub(T().stu,{t:'duelans',from:L.myId,name:L.name,id:m.id,round:m.round,c:+b.dataset.dop})})}
+  else{const won=m.winner===L.myId;
+    ov.innerHTML=`<div class="dbox ${won?'win':'lose'}"><div class="dav">${avSVG(m.av,90)}<span>${won?'🏆':'😅'}</span></div><h3>${won?'¡'+esc(n)+' es tuyo!':'¡Vaya!'}</h3><p class="dsub">${won?(m.byAnswer?'Has acertado antes.':'Te lo quedas: llegaste primero.'):(m.byAnswer?esc(m.wname)+' ha acertado antes.':esc(m.wname)+' se lo queda: llegó primero.')+' Elige otro avatar.'}</p>${m.right?`<p class="dq">La respuesta era: <b>${esc(m.right)}</b></p>`:''}<button type="button" class="btn primary" id="duel-ok">${won?'¡Genial!':'Elegir otro avatar'}</button></div>`;
+    ov.hidden=false;L.duel=null;
+    ov.querySelector('#duel-ok').onclick=()=>{ov.hidden=true;if(!won){L.pendingAv=true;window.__takenAv=new Set([...(window.__takenAv||[]),m.av]);const free=Object.keys(window.AVATARS||{}).find(k=>!window.__takenAv.has(k));if(free)window.__avSel=free;if(window.__avRefresh)window.__avRefresh();if(window.__avCard)window.__avCard();openModal();$l('lv-start').hidden=false;$l('lv-hostview').hidden=true;msg('Elige otro avatar y pulsa «Unirme».')}};
+    if(won){L.pendingAv=false;closeModal();msg('')}}}
+const esc=s=>String(s==null?'':s).replace(/[<>&"]/g,c=>({'<':'&lt;','>':'&gt;','&':'&amp;','"':'&quot;'}[c]));
+// un compositor por alumno: si ya lo tiene alguien que entró antes, se pide otro
+const avBase=a=>String(a||'').split('|')[0];
+function avConflict(m){const arr=m.taken||[];const mi=arr.findIndex(e=>e[0]===L.myId);return arr.some((e,i)=>e[0]!==L.myId&&avBase(e[1])===avBase(L.av)&&(mi<0||i<mi))}
+function checkAv(m){window.__takenAv=new Set((m.taken||[]).filter(e=>e[0]!==L.myId).map(e=>avBase(e[1])));if(window.__avRefresh)window.__avRefresh();
+  if(!L.pendingAv)return;
+  if(avConflict(m)){const n=(window.AVATARS&&AVATARS[avBase(L.av)]||{}).n||'ese compositor';$l('lv').hidden=false;msg('Ya hay alguien en clase con el avatar de '+n+'. ¡Preparaos para un duelo! (O elige otro y pulsa «Unirme»).');return}
+  L.pendingAv=false;try{document.activeElement&&document.activeElement.blur()}catch(e){}closeModal();msg('')}
 function join(){
   const code=$l('lv-code').value.trim(),name=$l('lv-name').value.trim()||'Alumno/a';
+  if(L.cli&&L.role==='student'){
+    L.av=window.__avSel||L.av;L.name=name;L.pendingAv=true;msg('Comprobando…');pub(T().stu,{t:'hello',from:L.myId,name,av:L.av});return}
   if(!/^[1-3]\d{3}$/.test(code)){msg('Escribe el código de 4 cifras que aparece en la pantalla de clase.');return}
   connect(+code[0]-1,(cli)=>{
-    L.cli=cli;L.code=code;L.name=name;L.av=(window.__avSel||'scarlatti')+(window.__insSel?'|'+window.__insSel:'');let got=false;L.seenClear=undefined;L.gotFirst=false;document.body.classList.add('connected');L.wasStu=document.body.classList.contains('mode-student');document.body.classList.add('mode-student');applyPerms({});
+    L.cli=cli;L.code=code;L.name=name;L.av=window.__avSel||'scarlatti';L.pendingAv=true;let got=false;L.seenClear=undefined;L.gotFirst=false;document.body.classList.add('connected');L.wasStu=document.body.classList.contains('mode-student');document.body.classList.add('mode-student');applyPerms({});
     cli.subscribe(T().host);
     cli.on('message',(topic,buf)=>{let m;try{m=JSON.parse(buf.toString())}catch(e){return}
       if(m.t==='play'){if(window.__onPlay)window.__onPlay(m);return}
+      if(m.t==='duel'||m.t==='duelres'){duelUI(m);return}
       if(m.t!=='state')return;
-      if(!got){got=true;L.role='student';try{document.activeElement&&document.activeElement.blur()}catch(e){}closeModal();msg('');toast('Conectado a la sala '+code)}
+      if(!got){got=true;L.role='student';toast('Conectado a la sala '+code)}
+      checkAv(m);
       applyPerms(m.perms||{acts:!!m.acts,games:!!m.games});if((m.clearN||0)>(L.seenClear??(m.clearN||0))){L.applying=true;try{window.clearAllWork()}finally{L.applying=false}toast('El profe ha limpiado todo')}L.seenClear=m.clearN||0;
       const wasLocked=L.locked;L.locked=!!m.locked;L.lastHost=m.s;if(wasLocked!==L.locked)toast(L.locked?'El profe ha bloqueado los móviles':'¡Ya puedes mover!');
       studentBar();if((m.actor||m.from)!==L.myId||!L.gotFirst||m.fix){L.gotFirst=true;applyState(m.s)}if(m.act&&m.actor!==L.myId)actToast(m.by||'Alguien',m.act)});
@@ -1295,7 +1485,7 @@ function renderPerms(){const box=$l('permpanel');box.innerHTML=`<b>Qué puede ha
   $l('perm-all').onclick=()=>{PERMS.forEach(([k])=>L.perms[k]=true);hostPublish();renderPerms();toast('El alumnado puede hacer todo')};
   $l('perm-none').onclick=()=>{L.perms={};hostPublish();renderPerms();toast('El alumnado solo puede mirar')}}
 window.__noDrag=()=>document.body.classList.contains('mode-student');
-window.__me=()=>({id:L.role?L.myId:'yo',name:L.role==='host'?'Profe':(L.role==='student'?(L.name||'Alumno/a'):'Yo'),av:L.role==='host'?'scarlatti':(L.av||'scarlatti')});
+window.__me=()=>({id:L.role?L.myId:'yo',name:L.role==='host'?'Profe':(L.role==='student'?(L.name||'Alumno/a'):'Yo'),av:(L.role==='host'||(!L.role&&!document.body.classList.contains('mode-student')))?'profe':(L.av||'scarlatti')});
 function setGames(on){['puzzle-link','game-cortes','game-parejas','qr-btn'].forEach(id=>{const e=document.getElementById(id);if(e)e.hidden=!on})}
 function setActs(on){['m-paint','m-hunt'].forEach(id=>{const e=document.getElementById(id);if(e)e.hidden=!on});if(!on&&st.mode!=='explore')setMode('explore')}
 window.__onClearAll=()=>{if(L.role==='host'){L.clearN=(L.clearN||0)+1;hostPublish();toast('Se ha limpiado también en los móviles')}};
@@ -1626,47 +1816,109 @@ const NS='http://www.w3.org/2000/svg';
 </script>
 <script>
 // ---------- ranking de la clase: solo en la pantalla del profe (no se envía a los móviles) ----------
+// Cada clase se guarda en este ordenador para poder revisarla después (y descargarla).
 (function(){
-const R={p:{},done:{},hist:[]};window.__RANK=R;
-// acierto en menos de 10 s: 1000 puntos; a partir de ahí, 20 puntos menos por cada 5 s
+const KEY='k9-ranking-clases';
+const load=()=>{try{return JSON.parse(localStorage.getItem(KEY)||'[]')}catch(e){return[]}};
+const save=list=>{try{localStorage.setItem(KEY,JSON.stringify(list.slice(-40)));return true}catch(e){return false}};
+const newSession=()=>({id:'s'+Date.now(),fecha:new Date().toISOString(),sala:null,p:{},done:{},hist:[]});
+let R=newSession();window.__RANK=R;
 const ptsFor=(ok,t)=>{if(!ok)return 0;const s=(t==null?60000:t)/1000;return s<10?1000:Math.max(0,1000-20*(Math.floor((s-10)/5)+1))};
 const esc=s=>String(s).replace(/[<>&"]/g,c=>({'<':'&lt;','>':'&gt;','&':'&amp;','"':'&quot;'}[c]));
 const fmt=ms=>ms==null?'—':(ms/1000).toFixed(1).replace('.',',')+' s';
+const fdate=iso=>{const d=new Date(iso);return d.toLocaleDateString('es-ES',{weekday:'short',day:'numeric',month:'short'})+' · '+d.toLocaleTimeString('es-ES',{hour:'2-digit',minute:'2-digit'})};
+function persist(){if(!R.hist.length)return;const all=load().filter(s=>s.id!==R.id);all.push({id:R.id,fecha:R.fecha,sala:R.sala,p:R.p,hist:R.hist});save(all)}
 window.__score=(key,list,label)=>{if(R.done[key]||!list)return;R.done[key]=1;
-  const round={label,res:[]};
+  const sala=document.querySelector('#lvbar b');if(sala&&!R.sala)R.sala=sala.textContent;
+  const round={label,at:Date.now(),res:[]};
   list.forEach(r=>{const P=R.p[r.id]=R.p[r.id]||{name:r.name,av:r.av,pts:0,ok:0,n:0,tt:0};P.name=r.name||P.name;P.av=r.av||P.av;
     const pts=ptsFor(r.ok,r.t);P.n++;P.pts+=pts;if(r.ok){P.ok++;P.tt+=r.t||0}P.last=pts;round.res.push({id:r.id,pts,ok:r.ok,t:r.t})});
-  R.hist.push(round);R.lastKey=key;draw(true)};
+  R.hist.push(round);persist();draw(true)};
+const sorted=S=>Object.entries(S.p).map(([id,P])=>({id,...P,avg:P.ok?P.tt/P.ok:null})).sort((a,b)=>b.pts-a.pts||b.ok-a.ok||(a.avg??1e9)-(b.avg??1e9));
 const btn=document.createElement('button');btn.className='btn';btn.id='rank-btn';btn.type='button';btn.textContent='🏆 Ranking';
 document.getElementById('q-btn').after(btn);
 const box=document.createElement('div');box.id='rankbox';box.hidden=true;document.body.appendChild(box);
+let view={tab:'now',sid:null};
 btn.onclick=()=>{box.hidden=!box.hidden;draw()};
-function draw(flash){const list=Object.entries(R.p).map(([id,P])=>({id,...P,avg:P.ok?P.tt/P.ok:null})).sort((a,b)=>b.pts-a.pts||b.ok-a.ok||(a.avg??1e9)-(b.avg??1e9));
+function rows(S,showLast){const list=sorted(S);const last=S.hist[S.hist.length-1];
+  return list.length?`<ol class="rkl">${list.map((P,i)=>`<li class="${i<3?'top'+(i+1):''}"><span class="rkn">${i<3?['🥇','🥈','🥉'][i]:i+1}</span><span class="rkav">${window.avSVG?avSVG(P.av,30):''}</span><span class="rknm">${esc(P.name)}${showLast&&last&&last.res.some(r=>r.id===P.id)?`<small class="${P.last?'up':'zero'}">${P.last?'+'+P.last:'+0'}</small>`:''}</span><span class="rkpt">${P.pts}</span><span class="rkst">✔ ${P.ok}/${P.n} · ⏱ ${fmt(P.avg)}</span></li>`).join('')}</ol>`
+   :'<p class="muted" style="margin:6px 0">Aún no hay puntos. Se suman al pulsar «✅ Ver la solución» en una pregunta.</p>'}
+function matrix(S){const list=sorted(S);if(!S.hist.length)return'';
+  return `<div class="rkmx"><table><thead><tr><th>Alumno/a</th>${S.hist.map((h,i)=>`<th title="${esc(h.label||'')}">P${i+1}</th>`).join('')}<th>Total</th></tr></thead><tbody>${list.map(P=>`<tr><td>${esc(P.name)}</td>${S.hist.map(h=>{const r=h.res.find(x=>x.id===P.id);return `<td class="${!r?'na':r.ok?'ok':'ko'}" title="${r?(r.ok?'Acierto':'Fallo')+' · '+fmt(r.t)+' · '+r.pts+' pts':'Sin respuesta'}">${!r?'·':r.ok?'✔':'✗'}${r&&r.ok?`<small>${fmt(r.t)}</small>`:''}</td>`}).join('')}<td><b>${P.pts}</b></td></tr>`).join('')}</tbody></table></div>
+   <ol class="rkq">${S.hist.map((h,i)=>`<li><b>P${i+1}</b> ${esc(h.label||'')}</li>`).join('')}</ol>`}
+function csv(S){const list=sorted(S);const head=['Puesto','Alumno/a','Puntos','Aciertos','Preguntas','Tiempo medio (s)',...S.hist.map((h,i)=>'P'+(i+1)+' '+(h.label||''))];
+  const lines=[head].concat(list.map((P,i)=>[i+1,P.name,P.pts,P.ok,P.n,P.avg==null?'':(P.avg/1000).toFixed(1).replace('.',','),...S.hist.map(h=>{const r=h.res.find(x=>x.id===P.id);return !r?'':(r.ok?'acierto ':'fallo ')+(r.t==null?'':(r.t/1000).toFixed(1).replace('.',',')+' s')+' ('+r.pts+')'})]));
+  const txt='﻿'+lines.map(l=>l.map(v=>`"${String(v).replace(/"/g,'""')}"`).join(';')).join('\r\n');
+  const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([txt],{type:'text/csv;charset=utf-8'}));a.download='ranking-scarlatti-'+S.fecha.slice(0,16).replace(/[T:]/g,'-')+'.csv';document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},500)}
+function draw(flash){const list=sorted(R);
   btn.textContent=list.length?`🏆 Ranking (${list.length})`:'🏆 Ranking';
   if(flash&&box.hidden){btn.classList.remove('pulse');void btn.offsetWidth;btn.classList.add('pulse')}
   if(box.hidden)return;
-  const last=R.hist[R.hist.length-1];
-  box.innerHTML=`<div class="rkh"><b>🏆 Ranking</b><span class="muted">${R.hist.length} pregunta${R.hist.length===1?'':'s'}</span><button type="button" id="rk-x" aria-label="Ocultar">✕</button></div>
-   ${list.length?`<ol class="rkl">${list.map((P,i)=>`<li class="${i<3?'top'+(i+1):''}"><span class="rkn">${i<3?['🥇','🥈','🥉'][i]:i+1}</span><span class="rkav">${window.avSVG?avSVG(P.av,30):''}</span><span class="rknm">${esc(P.name)}${last&&last.res.some(r=>r.id===P.id)?`<small class="${P.last?'up':'zero'}">${P.last?'+'+P.last:'+0'}</small>`:''}</span><span class="rkpt">${P.pts}</span><span class="rkst">✔ ${P.ok}/${P.n} · ⏱ ${fmt(P.avg)}</span></li>`).join('')}</ol>`
-     :'<p class="muted" style="margin:6px 0">Aún no hay puntos. Se suman al pulsar «✅ Ver la solución» en una pregunta.</p>'}
-   <p class="rknote">Acierto en menos de 10 s: 1000 puntos. Después, 20 puntos menos por cada 5 s (10–15 s: 980; 15–20 s: 960…). Fallo o sin enviar: 0.</p>
-   <div class="row"><button type="button" class="btn" id="rk-reset">Reiniciar ranking</button></div>`;
-  box.querySelector('#rk-x').onclick=()=>{box.hidden=true};
-  box.querySelector('#rk-reset').onclick=()=>{if(!confirmReset())return;R.p={};R.done={};R.hist=[];draw()}}
-let armed=0;function confirmReset(){const b=box.querySelector('#rk-reset');if(Date.now()-armed<3000)return true;armed=Date.now();b.textContent='¿Seguro? Pulsa otra vez';setTimeout(()=>{if(b.isConnected)b.textContent='Reiniciar ranking'},3000);return false}
+  const tabs=`<div class="rktabs" role="tablist"><button type="button" role="tab" aria-selected="${view.tab==='now'}" data-tab="now">Esta clase</button><button type="button" role="tab" aria-selected="${view.tab!=='now'}" data-tab="hist">📚 Clases anteriores</button></div>`;
+  let body='';
+  if(view.tab==='now'){body=rows(R,true)+`<details class="rkdet"><summary>Ver pregunta a pregunta</summary>${matrix(R)||'<p class="muted">Todavía no hay preguntas corregidas.</p>'}</details>
+     <p class="rknote">Acierto en menos de 10 s: 1000 puntos. Después, 20 puntos menos por cada 5 s. Fallo o sin enviar: 0.</p>
+     <div class="row"><button type="button" class="btn primary" id="rk-win" ${list.length?'':'disabled'}>🎉 Mostrar ganadores</button><button type="button" class="btn" id="rk-csv" ${R.hist.length?'':'disabled'}>⬇ Descargar</button><button type="button" class="btn" id="rk-reset">Nueva clase</button></div>`}
+  else if(!view.sid){const all=load().slice().reverse();
+    body=all.length?`<ul class="rkhist">${all.map(S=>{const w=sorted(S)[0];return `<li><button type="button" data-sid="${S.id}"><b>${fdate(S.fecha)}</b><span>${S.sala?esc(S.sala)+' · ':''}${Object.keys(S.p).length} alumnos · ${S.hist.length} preguntas${w?' · 🥇 '+esc(w.name):''}</span></button></li>`}).join('')}</ul>`
+      :'<p class="muted">Aún no hay clases guardadas. Cada clase se guarda sola en este ordenador al corregir la primera pregunta.</p>';
+    body+='<p class="rknote">Se guardan en este navegador (las 40 últimas). Para conservarlas siempre, usa «Descargar».</p>'}
+  else{const S=load().find(s=>s.id===view.sid);if(!S){view.sid=null;return draw()}
+    body=`<div class="row" style="align-items:center"><button type="button" class="btn" id="rk-back">← Volver</button><b>${fdate(S.fecha)}</b></div>${rows(S,false)}${matrix(S)}
+     <div class="row"><button type="button" class="btn primary" id="rk-win2">🎉 Ganadores</button><button type="button" class="btn" id="rk-csv2">⬇ Descargar</button><button type="button" class="btn" id="rk-del">🗑 Borrar</button></div>`}
+  box.innerHTML=`<div class="rkh"><b>🏆 Ranking</b><span class="muted">${view.tab==='now'?R.hist.length+' pregunta'+(R.hist.length===1?'':'s'):''}</span><button type="button" id="rk-x" aria-label="Ocultar">✕</button></div>${tabs}${body}`;
+  const on=(id,f)=>{const e=box.querySelector('#'+id);if(e)e.onclick=f};
+  on('rk-x',()=>{box.hidden=true});
+  box.querySelectorAll('[data-tab]').forEach(b=>b.onclick=()=>{view={tab:b.dataset.tab,sid:null};draw()});
+  box.querySelectorAll('[data-sid]').forEach(b=>b.onclick=()=>{view.sid=b.dataset.sid;draw()});
+  on('rk-back',()=>{view.sid=null;draw()});
+  on('rk-win',()=>podium(R));on('rk-csv',()=>csv(R));
+  on('rk-reset',e=>{if(!armed(e.currentTarget,'¿Empezar de cero? Pulsa otra vez'))return;persist();R=newSession();window.__RANK=R;draw()});
+  const S=view.sid&&load().find(s=>s.id===view.sid);
+  if(S){on('rk-win2',()=>podium(S));on('rk-csv2',()=>csv(S));on('rk-del',e=>{if(!armed(e.currentTarget,'¿Borrar? Pulsa otra vez'))return;save(load().filter(s=>s.id!==S.id));view.sid=null;draw()})}}
+const arm=new WeakMap();
+function armed(b,txt){const t=arm.get(b)||0;if(Date.now()-t<3000)return true;arm.set(b,Date.now());const old=b.textContent;b.textContent=txt;setTimeout(()=>{if(b.isConnected)b.textContent=old},3000);return false}
+// ---- podio con confeti (solo en esta pantalla) ----
+function podium(S){const top=sorted(S).slice(0,3);if(!top.length)return;
+  const ov=document.createElement('div');ov.id='podium';
+  const col=['#e5464f','#2f7cf0','#1fa35c','#f2c200','#9a5cf0','#f2801f'];
+  let conf='';for(let i=0;i<90;i++){conf+=`<i style="left:${Math.random()*100}%;background:${col[i%col.length]};animation-delay:${(Math.random()*2.2).toFixed(2)}s;animation-duration:${(2.6+Math.random()*2).toFixed(2)}s;transform:rotate(${Math.random()*360|0}deg)"></i>`}
+  const place=(P,n)=>P?`<div class="pd p${n}"><div class="pdav">${avSVG(P.av,n===1?150:110)}</div><b>${esc(P.name)}</b><span>${P.pts} puntos</span><div class="pdbox">${['','🥇','🥈','🥉'][n]}<small>${n}.º</small></div></div>`:'<div class="pd"></div>';
+  ov.innerHTML=`<div class="conf">${conf}</div><h2>🏆 ¡Enhorabuena!</h2><div class="pdrow">${place(top[1],2)}${place(top[0],1)}${place(top[2],3)}</div><button type="button" class="btn" id="pd-x">Cerrar</button>`;
+  document.body.appendChild(ov);ov.querySelector('#pd-x').onclick=()=>ov.remove();ov.addEventListener('click',e=>{if(e.target===ov)ov.remove()});
+  document.addEventListener('keydown',function k(e){if(e.key==='Escape'){ov.remove();document.removeEventListener('keydown',k)}})}
 })();
 </script>
 <script>
 // selector de avatar al unirse
 (function(){const box=document.getElementById('lv-av');if(!box||!window.AVATARS)return;const ORDER=['beethoven','clara','mozart','fanny','bach','hildegarda','vivaldi','strozzi','scarlatti','jacquet','haydn','martines','chopin','lili','verdi','price','chaikovski','rodrigo'];const keys=ORDER.filter(k=>AVATARS[k]);
 window.__avSel=keys[Math.floor(Math.random()*keys.length)];
-function draw(){box.innerHTML=keys.map(k=>`<button type="button" role="radio" aria-checked="${k===window.__avSel}" data-av="${k}" title="${AVATARS[k].n}" aria-label="${AVATARS[k].n}">${avSVG(k,38)}</button>`).join('');const n=document.getElementById('lv-avname');if(n)n.textContent='· '+AVATARS[window.__avSel].n}
-box.addEventListener('click',e=>{const b=e.target.closest('[data-av]');if(!b)return;window.__avSel=b.dataset.av;draw();drawIns()});draw();
-const ib=document.getElementById('lv-ins');window.__insSel='';
-function drawIns(){if(!ib||!window.INSTR)return;const opts=[['','Ninguno']].concat(Object.entries(INSTR).map(([k,v])=>[k,v[1]]));
-  ib.innerHTML=opts.map(([k,n])=>`<button type="button" role="radio" aria-checked="${k===window.__insSel}" data-ins="${k}" title="${n}" aria-label="${n}">${avSVG(window.__avSel+(k?'|'+k:''),38)}</button>`).join('');
-  const t=document.getElementById('lv-insname');if(t)t.textContent=window.__insSel?'· '+INSTR[window.__insSel][1]:''}
-if(ib)ib.addEventListener('click',e=>{const b=e.target.closest('[data-ins]');if(!b)return;window.__insSel=b.dataset.ins;drawIns()});drawIns()})();
+function draw(){const tk=window.__takenAv||new Set();box.innerHTML=keys.map(k=>`<button type="button" role="radio" aria-checked="${k===window.__avSel}" data-av="${k}" title="${AVATARS[k].n}${tk.has(k)?' (ya cogido: habrá duelo)':''}" aria-label="${AVATARS[k].n}${tk.has(k)?', ya cogido':''}" class="${tk.has(k)?'taken':''}">${avSVG(k,40)}${tk.has(k)?'<i class="lk">⚔️</i>':''}</button>`).join('');const n=document.getElementById('lv-avname');if(n)n.textContent='· '+AVATARS[window.__avSel].n}
+const INFO=window.__AVINFO={
+ beethoven:['1770–1827 · Alemania','Siguió componiendo cuando ya estaba completamente sordo. Estrenó su Novena Sinfonía sin poder oír los aplausos.'],
+ clara:['1819–1896 · Alemania','Fue una de las pianistas más famosas de su tiempo y dio conciertos durante más de sesenta años.'],
+ mozart:['1756–1791 · Austria','Compuso sus primeras piezas con cinco años y llegó a escribir más de seiscientas obras.'],
+ fanny:['1805–1847 · Alemania','Escribió más de 450 obras. Algunas de sus canciones se publicaron con el nombre de su hermano Felix.'],
+ bach:['1685–1750 · Alemania','Nació el mismo año que Scarlatti. Tuvo veinte hijos y varios fueron también compositores.'],
+ hildegarda:['1098–1179 · Alemania','Abadesa en la Edad Media. Además de música, escribió libros sobre medicina y plantas.'],
+ vivaldi:['1678–1741 · Italia','Le llamaban «el cura rojo» por su pelo. Enseñó música en un orfanato de niñas de Venecia.'],
+ strozzi:['1619–1677 · Italia','Publicó ocho libros de música, algo muy poco habitual para una mujer del siglo XVII.'],
+ scarlatti:['1685–1757 · Italia y España','Compuso 555 sonatas para clave, muchas en Madrid para la reina María Bárbara. ¡Este Essercizio es suyo!'],
+ jacquet:['1665–1729 · Francia','Tocaba el clave para Luis XIV desde niña y fue la primera mujer en Francia en componer una ópera.'],
+ haydn:['1732–1809 · Austria','Le llaman «el padre de la sinfonía»: compuso 104.'],
+ martines:['1744–1812 · Austria','De joven recibió clases de Haydn, que vivía en su misma casa, y Mozart tocaba dúos con ella.'],
+ chopin:['1810–1849 · Polonia','Casi toda su música es para piano. Publicó su primera obra con siete años.'],
+ lili:['1893–1918 · Francia','Fue la primera mujer en ganar el Premio de Roma de composición, con solo diecinueve años.'],
+ verdi:['1813–1901 · Italia','Compuso óperas como Aida y La traviata. Su coro «Va, pensiero» se convirtió en un himno en Italia.'],
+ price:['1887–1953 · Estados Unidos','Fue la primera mujer afroamericana cuya sinfonía interpretó una gran orquesta de su país.'],
+ chaikovski:['1840–1893 · Rusia','Compuso los ballets El lago de los cisnes y El cascanueces.'],
+ rodrigo:['1888–1967 · España','Fue la primera compositora que estrenó una ópera en el Teatro Real de Madrid.']};
+const card=document.getElementById('lv-avcard');
+function showCard(anim){if(!card)return;const k=window.__avSel,a=AVATARS[k],f=INFO[k]||['',''];
+  card.innerHTML=`<div class="avbig">${avSVG(k,76)}${anim?'<i class="nt n1">♪</i><i class="nt n2">♫</i><i class="nt n3">♩</i><i class="nt n4">♬</i>':''}</div><div><b>${a.n}</b><small>${f[0]}</small><p>${f[1]}</p></div>`;
+  if(anim){card.classList.remove('pop');void card.offsetWidth;card.classList.add('pop')}}
+box.addEventListener('click',e=>{const b=e.target.closest('[data-av]');if(!b)return;if(b.classList.contains('taken')){const m=document.getElementById('lv-msg');if(m)m.textContent=AVATARS[b.dataset.av].n+' ya lo tiene otra persona: si lo eliges, habrá un duelo.'}window.__avSel=b.dataset.av;draw();showCard(true)});draw();showCard(false);
+window.__avRefresh=()=>{draw()};window.__avCard=()=>showCard(false)})();
 </script>
 
 <script>
