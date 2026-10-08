@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Análisis Musical</title>
+  <meta name="description" content="Materiales de análisis musical de la asignatura. Contenidos de Miguel García Pérez.">
+  <meta name="author" content="Miguel García Pérez">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Great+Vibes&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --pergamino: #f4ecdc;
+      --pergamino-osc: #e6d8bc;
+      --tinta: #10302c;
+      --tinta-suave: #3d4b47;
+      --oro: #b08a3e;
+      --oro-claro: #d4b36a;
+      --madera: #3b2516;
+      --sombra: rgba(59, 37, 22, 0.18);
+      --burdeos: #8c2335;
+      --burdeos-osc: #5e1422;
+      --azul: #23508a;
+      --azul-osc: #16355e;
+      --verde: #1f6f63;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; background: var(--pergamino-osc); }
+
+    body {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 1.2rem;
+      line-height: 1.6;
+      color: var(--tinta);
+      background: linear-gradient(180deg, #fbf6ea 0%, var(--pergamino) 40%, var(--pergamino-osc) 100%);
+      min-height: 100vh;
+    }
+
+    a:focus-visible {
+      outline: 2px solid var(--oro);
+      outline-offset: 3px;
+    }
+
+    /* ---------- CABECERA ---------- */
+    .cabecera {
+      text-align: center;
+      padding: 4.5rem 1rem 3.8rem;
+      background:
+        radial-gradient(ellipse at center, rgba(255,250,238,0.97) 0%, rgba(248,238,218,0.88) 45%, rgba(240,220,180,0.45) 100%),
+        linear-gradient(90deg, var(--burdeos) 0%, #b5643a 22%, #e7c27a 50%, #3f8f8a 78%, var(--azul) 100%);
+      border-bottom: 3px double var(--oro);
+      box-shadow: 0 6px 24px var(--sombra);
+    }
+
+    .supertitulo {
+      font-family: 'Cinzel', serif;
+      letter-spacing: 0.35em;
+      font-size: clamp(0.9rem, 2.2vw, 1.4rem);
+      color: var(--azul);
+    }
+    .titulo {
+      font-family: 'Cinzel', serif;
+      font-weight: 600;
+      font-size: clamp(2.5rem, 8.5vw, 5.6rem);
+      line-height: 1.08;
+      letter-spacing: 0.06em;
+      color: var(--burdeos-osc);
+      text-shadow: 1px 2px 0 rgba(255,255,255,0.7);
+      margin: 0.3rem 0;
+    }
+    .separador {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      margin: 0.5rem auto;
+      max-width: 520px;
+    }
+    .separador::before, .separador::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--oro), transparent);
+    }
+    .flor { color: var(--oro); font-size: 1.6rem; line-height: 1; }
+    .lema {
+      font-family: 'Great Vibes', cursive;
+      font-size: clamp(1.8rem, 4.5vw, 3rem);
+      color: var(--oro);
+      margin-top: 0.4rem;
+    }
+
+    /* ---------- MENÚ ---------- */
+    nav {
+      background: linear-gradient(180deg, var(--burdeos), var(--burdeos-osc));
+      border-bottom: 2px solid var(--oro);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    nav ul {
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.3rem 2rem;
+      padding: 0.8rem 1rem;
+    }
+    nav a {
+      display: block;
+      padding: 0.25rem 0.2rem;
+      border-bottom: 2px solid transparent;
+      font-family: 'Cinzel', serif;
+      font-size: 0.95rem;
+      letter-spacing: 0.15em;
+      text-decoration: none;
+      color: var(--oro-claro);
+      transition: color 0.2s;
+    }
+    nav a:hover { color: #fff3d0; border-bottom-color: var(--oro-claro); }
+
+    /* ---------- CONTENIDO ---------- */
+    main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 3.5rem 1.25rem 4rem;
+    }
+
+    .intro {
+      max-width: 740px;
+      margin: 0 auto 3.2rem;
+      text-align: center;
+      font-size: 1.3rem;
+      color: var(--tinta-suave);
+    }
+
+    .compositor {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      background: rgba(255, 252, 244, 0.78);
+      border: 1px solid rgba(176, 138, 62, 0.45);
+      border-radius: 6px;
+      box-shadow: 0 10px 30px var(--sombra);
+      overflow: hidden;
+    }
+    .compositor + .compositor { margin-top: 2.5rem; }
+
+    .compositor-lateral {
+      background: linear-gradient(160deg, var(--azul-osc) 0%, var(--azul) 55%, var(--verde) 100%);
+      color: var(--oro-claro);
+      padding: 2.2rem 1.6rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+    .inicial {
+      font-family: 'Cinzel', serif;
+      font-size: 4.5rem;
+      line-height: 1;
+      width: 120px;
+      height: 120px;
+      display: grid;
+      place-items: center;
+      border: 2px solid var(--oro);
+      border-radius: 50%;
+      box-shadow: inset 0 0 0 6px rgba(176,138,62,0.2);
+      margin-bottom: 1.2rem;
+    }
+    .compositor-lateral .nombre {
+      font-family: 'Great Vibes', cursive;
+      font-size: 2.2rem;
+      line-height: 1.1;
+    }
+    .compositor-lateral .fechas {
+      font-family: 'Cinzel', serif;
+      font-size: 0.9rem;
+      letter-spacing: 0.2em;
+      margin-top: 0.5rem;
+      color: #e8d6a8;
+    }
+    .compositor-lateral .periodo {
+      font-style: italic;
+      font-size: 1.05rem;
+      color: #f3e2b5;
+      margin-top: 0.2rem;
+    }
+
+    .compositor-cuerpo { padding: 2.2rem 2.4rem; }
+    .compositor-cuerpo h2 {
+      font-family: 'Cinzel', serif;
+      font-weight: 600;
+      font-size: 1.7rem;
+      letter-spacing: 0.06em;
+      color: var(--azul-osc);
+      margin-bottom: 0.6rem;
+    }
+    .compositor-cuerpo > p {
+      color: var(--tinta-suave);
+      margin-bottom: 1.6rem;
+    }
+
+    .enlaces {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 1.2rem;
+    }
+    .enlace {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+      text-decoration: none;
+      color: var(--tinta);
+      padding: 1.2rem 1.3rem;
+      background: var(--pergamino);
+      border: 1px solid rgba(176, 138, 62, 0.4);
+      border-left: 4px solid var(--oro);
+      border-radius: 4px;
+      transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+    }
+    .enlace.bio { background: #e9f0f8; border-color: rgba(35, 80, 138, 0.3); border-left-color: var(--azul); }
+    .enlace.bio .icono { background: var(--azul); }
+    .enlace.sonata { background: #f8e9ea; border-color: rgba(140, 35, 53, 0.3); border-left-color: var(--burdeos); }
+    .enlace.sonata .icono { background: var(--burdeos); }
+    .enlace:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px var(--sombra);
+    }
+    .enlace .icono {
+      flex-shrink: 0;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: var(--tinta);
+      color: #fff3d0;
+      font-size: 1.3rem;
+    }
+    .enlace strong {
+      display: block;
+      font-family: 'Cinzel', serif;
+      font-size: 1.1rem;
+      letter-spacing: 0.04em;
+    }
+    .enlace .desc {
+      display: block;
+      font-size: 1.02rem;
+      color: var(--tinta-suave);
+      line-height: 1.4;
+    }
+    .enlace .flecha {
+      margin-left: auto;
+      align-self: center;
+      color: var(--oro);
+      transition: transform 0.2s;
+    }
+    .enlace:hover .flecha { transform: translateX(4px); }
+
+    @media (prefers-reduced-motion: reduce) {
+      .enlace, .enlace .flecha { transition: none; }
+    }
+
+    /* ---------- PIE ---------- */
+    footer {
+      text-align: center;
+      padding: 1.6rem 1rem 2rem;
+      border-top: 3px double var(--oro);
+      color: var(--tinta-suave);
+      font-size: 1rem;
+    }
+
+    @media (max-width: 760px) {
+      .compositor { grid-template-columns: 1fr; }
+      .compositor-cuerpo { padding: 1.8rem 1.4rem; }
+      .cabecera {
+        padding: 3rem 1rem 2.6rem;
+        background:
+          radial-gradient(ellipse at center, rgba(255,250,238,0.97) 0%, rgba(248,238,218,0.85) 60%, rgba(240,220,180,0.45) 100%),
+          linear-gradient(90deg, var(--burdeos) 0%, #e7c27a 50%, var(--azul) 100%);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== CABECERA ===== -->
+  <header class="cabecera">
+    <p class="supertitulo">MATERIALES DE</p>
+    <h1 class="titulo">ANÁLISIS MUSICAL</h1>
+    <div class="separador"><span class="flor" aria-hidden="true">⚜</span></div>
+    <p class="lema">Escuchar, leer y comprender la música</p>
+  </header>
+
+  <!-- ===== MENÚ ===== -->
+  <nav aria-label="Navegación principal">
+    <ul>
+      <li><a href="https://mgarper686.github.io/">Inicio</a></li>
+      <li><a href="#scarlatti">Scarlatti</a></li>
+      <li><a href="https://mgarper686.github.io/Periodos/">Períodos</a></li>
+      <li><a href="https://mgarper686.github.io/Mozart/">W. A. Mozart</a></li>
+      <li><a href="https://mgarper686.github.io/Beethoven/">L. van Beethoven</a></li>
+    </ul>
+  </nav>
+
+  <!-- ===== CONTENIDO ===== -->
+  <main>
+
+    <p class="intro">
+      Elige un compositor y accede a su biografía o al análisis de sus obras:
+      el contexto, la forma y lo que sucede en la partitura, compás a compás.
+    </p>
+
+    <!-- Para añadir otro compositor, copia este bloque <section> completo -->
+    <section class="compositor" id="scarlatti">
+      <div class="compositor-lateral">
+        <div class="inicial" aria-hidden="true">S</div>
+        <p class="nombre">Domenico Scarlatti</p>
+        <p class="fechas">1685 – 1757</p>
+        <p class="periodo">Preclásico</p>
+      </div>
+
+      <div class="compositor-cuerpo">
+        <h2>Domenico Scarlatti</h2>
+        <p>
+          Nacido en Nápoles el mismo año que Bach y Händel, pasó gran parte de su vida
+          en Lisboa y Madrid como maestro de música de María Bárbara de Braganza. Para ella
+          escribió más de quinientas sonatas para teclado, llenas de ecos de la guitarra
+          y de la música popular española.
+        </p>
+
+        <div class="enlaces">
+          <a class="enlace bio" href="https://mgarper686.github.io/Scarlatti/biografia">
+            <span class="icono" aria-hidden="true">✒</span>
+            <span>
+              <strong>Biografía</strong>
+              <span class="desc">Vida y trayectoria del compositor, de Nápoles a la corte de Madrid.</span>
+            </span>
+            <span class="flecha" aria-hidden="true">→</span>
+          </a>
+
+          <a class="enlace sonata" href="https://mgarper686.github.io/Scarlatti/k9">
+            <span class="icono" aria-hidden="true">♪</span>
+            <span>
+              <strong>Sonata K. 9</strong>
+              <span class="desc">Análisis de la Sonata en re menor, conocida como «Pastoral».</span>
+            </span>
+            <span class="flecha" aria-hidden="true">→</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===== PIE ===== -->
+  <footer>
+    Contenidos elaborados por el profesor Miguel García Pérez
+  </footer>
+
+</body>
+</html>
