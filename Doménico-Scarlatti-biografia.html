@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>Vida de Doménico Scarlatti</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,500;6..96,700&family=Barlow+Condensed:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&family=Public+Sans:wght@400;500;600&display=swap">
+<style>
+/* Layout: cabecera con cifras, línea de vida a escala (1685–1757) y cronología vertical año | raíl | tarjeta.
+   Un color por ciudad: Italia (teal), Lisboa (azul azulejo), Sevilla (ámbar), Madrid (carmín). */
+:root {
+  --bg: #e9f0ff;
+  --surface: #ffffff;
+  --fg: #101a33;
+  --muted: #4b5a7a;
+  --line: #bccdf0;
+  --italia: #00c2a8;
+  --lisboa: #2563ff;
+  --sevilla: #ffa000;
+  --madrid: #ff2d6b;
+  --italia-t: #00796a;
+  --lisboa-t: #1a4fe0;
+  --sevilla-t: #c25e00;
+  --madrid-t: #e0113f;
+  --f-display: "Bodoni Moda", "Didot", "Bodoni 72", Georgia, serif;
+  --f-body: "Public Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --f-date: "Barlow Condensed", "Arial Narrow", "Roboto Condensed", sans-serif;
+  --f-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0a1024; --surface: #131c3a; --fg: #eef2ff; --muted: #a3b2d9; --line: #2a3a6b;
+    --italia: #19f0c8; --lisboa: #5b8cff; --sevilla: #ffbb1f; --madrid: #ff5586;
+    --italia-t: #19f0c8; --lisboa-t: #7ea3ff; --sevilla-t: #ffbb1f; --madrid-t: #ff6e98;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0a1024; --surface: #131c3a; --fg: #eef2ff; --muted: #a3b2d9; --line: #2a3a6b;
+  --italia: #19f0c8; --lisboa: #5b8cff; --sevilla: #ffbb1f; --madrid: #ff5586;
+  --italia-t: #19f0c8; --lisboa-t: #7ea3ff; --sevilla-t: #ffbb1f; --madrid-t: #ff6e98;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--f-body);
+  font-size: 1rem;
+  line-height: 1.55;
+  padding-inline: 1rem;
+  padding-block: 2.5rem 3rem;
+}
+.wrap { max-width: 60rem; margin-inline: auto; display: flex; flex-direction: column; gap: 3rem; }
+h1, h2, h3, p, ol, ul { margin: 0; padding: 0; }
+ol, ul { list-style: none; }
+.mono { font-family: var(--f-mono); font-variant-numeric: tabular-nums; }
+
+/* Cabecera */
+.head { display: flex; flex-direction: column; gap: 1.25rem; }
+.eyebrow { font-family: var(--f-mono); font-size: .75rem; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+h1 {
+  font-family: var(--f-display);
+  font-weight: 700;
+  font-size: clamp(2.5rem, 9vw, 5rem);
+  line-height: 1;
+  letter-spacing: -.01em;
+  text-wrap: balance;
+}
+.lead { font-size: 1.125rem; color: var(--muted); max-width: 40rem; text-wrap: pretty; }
+.facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(9.5rem, 1fr)); gap: 1rem 1.5rem; padding-top: 1.25rem; border-top: 1px solid var(--line); }
+.fact { display: flex; flex-direction: column; gap: .15rem; min-width: 0; }
+.fact b { font-family: var(--f-date); font-size: 3rem; letter-spacing: .01em; line-height: 1; font-weight: 700; }
+.fact span { font-size: .875rem; color: var(--muted); }
+
+/* Línea de vida */
+.section-title { font-family: var(--f-mono); font-size: .75rem; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); font-weight: 500; }
+.life { display: flex; flex-direction: column; gap: .75rem; }
+.bar { display: flex; gap: 2px; height: 1.25rem; }
+.seg { background: var(--c); border-radius: 2px; min-width: 3px; }
+.ticks { position: relative; height: 1.5rem; }
+.tick { position: absolute; top: 0; display: flex; flex-direction: column; align-items: center; gap: .15rem; transform: translateX(-50%); font-family: var(--f-mono); font-size: .75rem; color: var(--fg); }
+.tick::before { content: ""; width: 1px; height: .45rem; background: var(--muted); }
+.tick.first { transform: none; align-items: flex-start; }
+.tick.last { transform: translateX(-100%); align-items: flex-end; }
+.tick.minor span { display: none; }
+.legend { display: grid; grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr)); gap: 1rem; }
+.legend li { display: flex; flex-direction: column; gap: .1rem; min-width: 0; }
+.legend .nm { display: flex; align-items: center; gap: .5rem; font-weight: 600; }
+.legend .nm::before { content: ""; width: .75rem; height: .75rem; border-radius: 2px; background: var(--c); flex: none; }
+.legend .yrs { font-family: var(--f-mono); font-size: .8125rem; color: var(--muted); padding-left: 1.25rem; }
+
+/* Cronología */
+.tl { display: flex; flex-direction: column; }
+.tl > li {
+  --rail: 1.75rem;
+  display: grid;
+  grid-template-columns: 9.5rem var(--rail) minmax(0, 1fr);
+  column-gap: 1rem;
+  padding-bottom: 1.75rem;
+}
+.tl > li:last-child { padding-bottom: 0; }
+.when { text-align: right; display: flex; flex-direction: column; gap: .2rem; padding-top: .35rem; }
+.yr { font-family: var(--f-date); font-weight: 700; font-size: 2.75rem; letter-spacing: .01em; line-height: 1; font-variant-numeric: lining-nums tabular-nums; color: var(--ct); }
+.age { font-family: var(--f-date); font-weight: 600; font-size: 1rem; letter-spacing: .04em; text-transform: uppercase; color: var(--muted); }
+.rail { position: relative; }
+.rail::before { content: ""; position: absolute; left: 50%; top: .9rem; bottom: -1.75rem; width: 2px; margin-left: -1px; background: var(--line); }
+.tl > li:last-child .rail::before { display: none; }
+.rail::after { content: ""; position: absolute; left: 50%; top: .55rem; width: .8rem; height: .8rem; margin-left: -.4rem; border-radius: 50%; background: var(--c); box-shadow: 0 0 0 4px var(--bg); }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 1.1rem 1.25rem 1.25rem; display: flex; flex-direction: column; gap: .6rem; min-width: 0; }
+.card { border-top: 4px solid var(--c); }
+.city { font-family: var(--f-mono); font-size: .75rem; letter-spacing: .14em; text-transform: uppercase; color: var(--ct); font-weight: 600; }
+h3 { font-family: var(--f-display); font-weight: 700; font-size: 1.4rem; line-height: 1.2; text-wrap: balance; }
+.card p { color: var(--muted); max-width: 65ch; text-wrap: pretty; }
+.card p strong { color: var(--fg); font-weight: 600; }
+.card p + p { margin-top: -.1rem; }
+.sub { padding-top: .6rem; border-top: 1px dashed var(--line); }
+
+/* Legado */
+.legacy { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr); gap: 1.5rem 3rem; padding-top: 2rem; border-top: 1px solid var(--line); }
+.legacy h2 { font-family: var(--f-display); font-size: clamp(1.75rem, 5vw, 2.5rem); line-height: 1.1; font-weight: 700; text-wrap: balance; }
+.legacy p { color: var(--muted); max-width: 65ch; }
+.chips { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: 1rem; }
+.chips li { font-family: var(--f-mono); font-size: .8125rem; border: 1px solid var(--line); padding: .2rem .6rem; border-radius: 999px; color: var(--fg); }
+.note { font-size: .8125rem; color: var(--muted); max-width: 65ch; }
+.note b { color: var(--fg); font-weight: 600; }
+
+@media (max-width: 40rem) {
+  .tl > li { grid-template-columns: 1.75rem minmax(0, 1fr); column-gap: .75rem; }
+  .rail { grid-column: 1; grid-row: 1 / span 2; }
+  .when { grid-column: 2; grid-row: 1; text-align: left; flex-direction: row; align-items: baseline; gap: .75rem; padding: 0 0 .5rem; flex-wrap: wrap; }
+  .card { grid-column: 2; grid-row: 2; }
+  .rail::before { top: .5rem; }
+  .rail::after { top: .15rem; }
+  .legacy { grid-template-columns: minmax(0, 1fr); }
+}
+</style>
+
+</head>
+<body>
+<main class="wrap">
+  <header class="head">
+    <p class="eyebrow">Biografía · Nápoles, Roma, Lisboa, Sevilla, Madrid</p>
+    <h1>Doménico Scarlatti</h1>
+    <p class="lead">Un napolitano criado entre músicos que acabó sus días en Madrid, tras seguir a una princesa de Lisboa a Sevilla.</p>
+    <ul class="facts">
+      <li class="fact"><b>1685</b><span>nace el mismo año que Bach y Händel</span></li>
+      <li class="fact"><b>10</b><span>hermanos en una familia de músicos</span></li>
+      <li class="fact"><b>16</b><span>años al entrar en la capilla real de Nápoles</span></li>
+      <li class="fact"><b>555</b><span>sonatas para teclado</span></li>
+    </ul>
+  </header>
+
+  <section class="life" aria-labelledby="t-life">
+    <h2 class="section-title" id="t-life">Su vida a escala · 1685 a 1757*</h2>
+    <div class="bar" role="img" aria-label="Línea de vida: Italia 35 años, Lisboa 9 años, Sevilla 4 años, Madrid 24 años">
+      <div class="seg" style="flex-grow:35; --c:var(--italia)"></div>
+      <div class="seg" style="flex-grow:9; --c:var(--lisboa)"></div>
+      <div class="seg" style="flex-grow:4; --c:var(--sevilla)"></div>
+      <div class="seg" style="flex-grow:24; --c:var(--madrid)"></div>
+    </div>
+    <div class="ticks" aria-hidden="true">
+      <div class="tick first" style="left:0"><span>1685</span></div>
+      <div class="tick" style="left:48.61%"><span>1720</span></div>
+      <div class="tick" style="left:61.11%"><span>1729</span></div>
+      <div class="tick minor" style="left:66.67%"><span>1733*</span></div>
+      <div class="tick last" style="left:100%"><span>1757*</span></div>
+    </div>
+    <ul class="legend">
+      <li style="--c:var(--italia)"><span class="nm">Nápoles y Roma</span><span class="yrs">1685 – 1720 · 35 años</span></li>
+      <li style="--c:var(--lisboa)"><span class="nm">Lisboa</span><span class="yrs">1720 – 1729 · 9 años</span></li>
+      <li style="--c:var(--sevilla)"><span class="nm">Sevilla</span><span class="yrs">1729 – 1733* · 4 años</span></li>
+      <li style="--c:var(--madrid)"><span class="nm">Madrid</span><span class="yrs">1733* – 1757* · 24 años</span></li>
+    </ul>
+  </section>
+
+  <section aria-labelledby="t-tl">
+    <h2 class="section-title" id="t-tl" style="margin-bottom:1.5rem">Etapas</h2>
+    <ol class="tl">
+
+      <li style="--c:var(--italia); --ct:var(--italia-t)">
+        <div class="when"><span class="yr">1685</span><span class="age">nacimiento</span></div>
+        <div class="rail"></div>
+        <article class="card">
+          <p class="city">Nápoles</p>
+          <h3>Nace en una familia de músicos</h3>
+          <p>Hijo de <strong>Alessandro Scarlatti</strong>, el gran maestro de la ópera napolitana. Su hermano Pietro Filippo fue otro músico famoso de la familia, anterior al propio Doménico. Eran diez hermanos.</p>
+          <p>Como Bach, se forma en un ambiente de mucha exigencia y competitividad.</p>
+        </article>
+      </li>
+
+      <li style="--c:var(--italia); --ct:var(--italia-t)">
+        <div class="when"><span class="yr">c. 1701</span><span class="age">16 años</span></div>
+        <div class="rail"></div>
+        <article class="card">
+          <p class="city">Nápoles</p>
+          <h3>Músico de la capilla real española</h3>
+          <p>Con 16 años compone la música de los protocolos de la capilla y toca el <strong>órgano</strong> en todas las ceremonias y conciertos.</p>
+        </article>
+      </li>
+
+      <li style="--c:var(--italia); --ct:var(--italia-t)">
+        <div class="when"><span class="yr">1709*</span><span class="age">veintitantos años</span></div>
+        <div class="rail"></div>
+        <article class="card">
+          <p class="city">Roma</p>
+          <h3>El duelo con Händel</h3>
+          <p>Según se dice, compite con Händel en el palacio del <strong>cardenal Ottoboni</strong>. Lo declaran superior a Händel al clave e inferior al órgano.</p>
+          <p class="sub">En Roma vive y compone mucha música hasta 1720.</p>
+        </article>
+      </li>
+
+      <li style="--c:var(--lisboa); --ct:var(--lisboa-t)">
+        <div class="when"><span class="yr">1720</span><span class="age">35 años</span></div>
+        <div class="rail"></div>
+        <article class="card">
+          <p class="city">Lisboa</p>
+          <h3>Viaja a Portugal llamado por una princesa</h3>
+          <p>La requiere <strong>Bárbara de Braganza</strong>, princesa real de la casa portuguesa. Pasa nueve años en su órbita.</p>
+        </article>
+      </li>
+
+      <li style="--c:var(--sevilla); --ct:var(--sevilla-t)">
+        <div class="when"><span class="yr">1729</span><span class="age">nueve años después</span></div>
+        <div class="rail"></div>
+        <article class="card">
+          <p class="city">Sevilla</p>
+          <h3>Pasa a España con la princesa</h3>
+          <p>Bárbara se casa con el príncipe Fernando, el futuro <strong>Fernando VI</strong>, y se lleva a Scarlatti a Sevilla.</p>
+        </article>
+      </li>
+
+      <li style="--c:var(--madrid); --ct:var(--madrid-t)">
+        <div class="when"><span class="yr">1733*</span><span class="age">hasta 1757*</span></div>
+        <div class="rail"></div>
+        <article class="card">
+          <p class="city">Madrid</p>
+          <h3>La última parte de su vida</h3>
+          <p>Vive en Madrid el resto de sus días y muere en la ciudad. En la calle de Leganitos, cerca de la plaza de España, una placa marca el lugar donde murió.</p>
+          <p>Sus descendientes fueron españoles y aún viven, algunos con el apellido castellanizado, con una sola t.</p>
+        </article>
+      </li>
+    </ol>
+  </section>
+
+  <section class="legacy" aria-labelledby="t-leg">
+    <h2 id="t-leg">Lo que compuso en España</h2>
+    <div>
+      <p>Allí escribe sus <strong>555 sonatas para teclado</strong>, de estilo rococó, con aires populares: bulerías, peteneras, boleros, marchas, saetas, fandangos y zapateados. Sus disonancias libres, casi agresivas, no las usaron Bach, Händel, Mozart ni Beethoven.</p>
+      <ul class="chips">
+        <li>bulería</li><li>petenera</li><li>bolero</li><li>saeta</li><li>fandango</li><li>zapateado</li>
+      </ul>
+    </div>
+  </section>
+
+  <p class="note"><b>Sobre las fechas.</b> Las de 1685, 1720 y 1729 salen de la transcripción. «c. 1701» se calcula a partir de los 16 años. Los datos con asterisco (1709*, 1733* y 1757*) no figuran en la transcripción y se añaden de fuentes generales. De la fecha del duelo con Händel, la transcripción solo dice «a los veintitantos».</p>
+</main>
+</body>
+</html>
