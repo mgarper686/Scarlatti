@@ -182,15 +182,14 @@
     }
 
     .enlaces {
-      display: flex;
-      flex-wrap: wrap;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
       gap: 0.9rem;
     }
     .enlace {
       display: flex;
       align-items: center;
       gap: 0.9rem;
-      flex: 1 1 250px;
       text-decoration: none;
       padding: 0.95rem 1.2rem;
       border-radius: 12px;
@@ -324,6 +323,15 @@
             <span>
               <strong>Sonata K. 9</strong>
               <span class="desc">Análisis de la Sonata en re menor, la «Pastoral».</span>
+            </span>
+            <span class="flecha" aria-hidden="true">→</span>
+          </a>
+
+          <a class="enlace sonata" href="https://mgarper686.github.io/Scarlatti/k491">
+            <span class="icono" aria-hidden="true">♪</span>
+            <span>
+              <strong>Sonata K. 491</strong>
+              <span class="desc">Análisis de la Sonata K. 491.</span>
             </span>
             <span class="flecha" aria-hidden="true">→</span>
           </a>
